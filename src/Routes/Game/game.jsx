@@ -25,7 +25,7 @@ const TextContainer = styled.div`
 `;
 
 
-function Start() {
+function Game() {
   return (
     <TitleLabel>
       <TextContainer>NS-TYPING</TextContainer>
@@ -33,4 +33,4 @@ function Start() {
   );
 }
 
-export default Start;
+export default Game;
