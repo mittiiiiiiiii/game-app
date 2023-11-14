@@ -1,0 +1,52 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`スタイルに変更を検出 Startコンポーネントのスタイルがスナップショットと一致するか 1`] = `
+<div>
+  <div
+    class="sc-bdfCDU mZNAa"
+  >
+    <div
+      class="sc-gsTDqH jLtTnb"
+    >
+      <div
+        class="sc-dlfmHC gyNXDn"
+        data-testid="title-label"
+      >
+        NS-TYPING
+      </div>
+    </div>
+    <div
+      class="sc-hKgKIp kDulAR"
+    >
+      <div
+        class="sc-eCstZk dwuufg"
+      />
+      <div
+        class="sc-jSguLX ckUHVo"
+        data-testid="subtitle-text"
+      >
+        NS-TYPING
+        <br />
+      </div>
+      <div
+        class="sc-gKsecS gYhtoG"
+      >
+        数字・記号専用のタイピング練習ゲーム
+        <br />
+      </div>
+      <div
+        class="sc-iBPTVF bzMfTy"
+      >
+        <div
+          class="sc-fubDmA fyDjHB"
+        />
+        <div
+          class="sc-pGaPU bpblVh"
+        >
+          プレイする
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
