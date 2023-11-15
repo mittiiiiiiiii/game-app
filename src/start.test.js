@@ -1,13 +1,13 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import Start from './start'; // Startコンポーネントの正しいパスを設定してください
+import Start from './Routes/Start/start'; // Startコンポーネントの正しいパスを設定してください
 
 describe('スタイルの変更を検出', () =>{
-test('Startコンポーネントのスタイルがスナップショットと一致するか', () => {
-  const { container } = render(<Start />);
-  expect(container).toMatchSnapshot();
-});
+  test('Startコンポーネントのスタイルがスナップショットと一致するか', () => {
+    const { container } = render(<Start />);
+    expect(container).toMatchSnapshot();
+  });
 });
 
 describe('Start コンポーネント', () => {

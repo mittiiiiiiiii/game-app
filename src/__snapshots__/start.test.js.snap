@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`スタイルに変更を検出 Startコンポーネントのスタイルがスナップショットと一致するか 1`] = `
+exports[`スタイルの変更を検出 Startコンポーネントのスタイルがスナップショットと一致するか 1`] = `
 <div>
   <div
     class="sc-bdfCDU mZNAa"
