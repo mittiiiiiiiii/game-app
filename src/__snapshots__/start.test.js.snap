@@ -1,5 +1,55 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`スタイルの変更を検出 Gameコンポーネントのスタイルがスナップショットと一致するか 1`] = `
+<div>
+  <div
+    class="sc-jrAGKZ dZxmGL"
+  >
+    <div
+      class="sc-kEjbdu cVNVdt"
+    >
+      <div
+        class="sc-iqHXzD bpnbQh"
+      >
+        NS-TYPING
+      </div>
+    </div>
+    <div
+      class="sc-crrtmM hILKaI"
+    >
+      <div
+        class="sc-dQpIV cArNLS"
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`スタイルの変更を検出 Resultコンポーネントのスタイルがスナップショットと一致するか 1`] = `
+<div>
+  <div
+    class="sc-bqyKbq liUYJC"
+  >
+    <div
+      class="sc-kstpWv zVONj"
+    >
+      <div
+        class="sc-hBEZvw hvDoDz"
+      >
+        NS-TYPING
+      </div>
+    </div>
+    <div
+      class="sc-fodVRF jGMEhU"
+    >
+      <div
+        class="sc-fFubCH ixroZQ"
+      />
+    </div>
+  </div>
+</div>
+`;
+
 exports[`スタイルの変更を検出 Startコンポーネントのスタイルがスナップショットと一致するか 1`] = `
 <div>
   <div
@@ -39,11 +89,13 @@ exports[`スタイルの変更を検出 Startコンポーネントのスタイ�
       >
         <div
           class="sc-fubDmA fyDjHB"
-        />
-        <div
-          class="sc-pGaPU bpblVh"
         >
-          プレイする
+           
+          <div
+            class="sc-pGaPU bpblVh"
+          >
+            プレイする
+          </div>
         </div>
       </div>
     </div>

@@ -1,18 +1,29 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen}from '@testing-library/react';
+import { BrowserRouter as Router} from 'react-router-dom';
 import '@testing-library/jest-dom';
-import Start from './Routes/Start/start'; // Startコンポーネントの正しいパスを設定してください
+import Start from './Routes/Start/start';
+import Game from './Routes/Game/game';
+import Result from './Routes/Result/result';
 
 describe('スタイルの変更を検出', () =>{
   test('Startコンポーネントのスタイルがスナップショットと一致するか', () => {
-    const { container } = render(<Start />);
+    const { container } = render(<Router><Start /></Router>);
+    expect(container).toMatchSnapshot();
+  });
+  test('Gameコンポーネントのスタイルがスナップショットと一致するか', () => {
+    const { container } = render(<Game />);
+    expect(container).toMatchSnapshot();
+  });
+  test('Resultコンポーネントのスタイルがスナップショットと一致するか', () => {
+    const { container } = render(<Result />);
     expect(container).toMatchSnapshot();
   });
 });
 
 describe('Start コンポーネント', () => {
   test('期待されたテキストで正しくレンダリングされる', () => {
-    render(<Start />);
+    render(<Router><Start /></Router>);
     const titleLabel = screen.getByTestId('title-label');
     const subtitleLabel = screen.getByTestId('subtitle-text');
     const text = screen.getByText('数字・記号専用のタイピング練習ゲーム');
@@ -31,7 +42,7 @@ describe('Start コンポーネント', () => {
 
   });
   test('プレイボタンが存在するか', () => {
-    render(<Start />);
+    render(<Router><Start /></Router>);
     //const playButton = screen.getByRole('button', { name: /プレイする/i, hidden: true });
     const playButton = screen.getByText(/プレイする/i);
     expect(playButton).toBeInTheDocument();

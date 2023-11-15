@@ -1,5 +1,6 @@
 import React from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
+import { useNavigate } from 'react-router-dom'; // useNavigate をインポート
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -112,6 +113,12 @@ const PlayButtonText = styled.div`
 `;
 
 function Start() {
+  const navigate = useNavigate(); // useNavigate フックを使用
+
+  // PlayButton をクリックした時の処理
+  const handlePlayButtonClick = () => {
+    navigate('/game'); // '/game' にナビゲート
+  };
   return (
     <>
       <GlobalStyle />
@@ -124,9 +131,10 @@ function Start() {
           <TitleText data-testid="subtitle-text">NS-TYPING<br/></TitleText>
           <SubtitleText>数字・記号専用のタイピング練習ゲーム<br/></SubtitleText>
           <PlayButtonContainer>
-            <PlayButton />
+          <PlayButton onClick={handlePlayButtonClick}> {/* onClick イベントを追加 */}
             <PlayButtonText>プレイする</PlayButtonText>
-          </PlayButtonContainer>
+          </PlayButton>
+        </PlayButtonContainer>
         </StyledDiv>
       </BackgroundContainer>
     </>
