@@ -1,40 +1,45 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom'; // useHistoryからuseNavigateに変更
 import styled, { createGlobalStyle } from 'styled-components';
-import { useNavigate } from 'react-router-dom'; 
 
-const symbols = ['@', '#', '$', '%', '&', '*', '!', '?', '+', '=']; // 外に移動
+const symbols = ['@', '#', '$', '%', '&', '*', '!', '?', '+', '='];
 
 function Game() {
   const navigate = useNavigate();
   const [currentSymbol, setCurrentSymbol] = useState('');
   const [questionCount, setQuestionCount] = useState(0);
   const [correctCount, setCorrectCount] = useState(0);
-  
+
+  // ランダムな記号を選択
   useEffect(() => {
+    setCurrentSymbol(symbols[Math.floor(Math.random() * symbols.length)]);
+  }, [questionCount]);
+
+  // キーイベントのハンドラー
+  const handleKeyPress = (event) => {
+    if (event.key === currentSymbol) {
+      setCorrectCount(correctCount + 1);
+    }
+    
     if (questionCount < 10) {
-      
-      setCurrentSymbol(symbols[Math.floor(Math.random() * symbols.length)]);
-    } else {
-     
+      setQuestionCount(questionCount + 1);
+    }
+
+    if (questionCount >= 9) { // 10問目の問題が終わったらリザルト画面へ
       navigate('/result');
     }
-  }, [questionCount, navigate, correctCount]);
+  };
 
+  // キーイベントのリスナーを追加
   useEffect(() => {
-    const handleKeyPress = (event) => {
-      if (event.key === currentSymbol) {
-        setCorrectCount(correctCount + 1); 
-      }
-      setQuestionCount(questionCount + 1); 
-    };
-  
     window.addEventListener('keypress', handleKeyPress);
-  
+
     return () => {
       window.removeEventListener('keypress', handleKeyPress);
     };
-  }, [currentSymbol, questionCount, correctCount]);
-  
+  }, [currentSymbol, correctCount, questionCount]);
+
+  // タイトルに戻るボタンのハンドラー
   const handlePlayButtonClick = () => {
     navigate('/');
   };
@@ -49,8 +54,8 @@ function Game() {
         <StyledDiv>
           <BlackBox>
             <InstructionText>表示された数字または記号のキーを押してください</InstructionText>
-              <SymbolDisplay>{currentSymbol}</SymbolDisplay>
-              <StatsDisplay>問題数: {questionCount}<br/><br/><br/>正解数: {correctCount}</StatsDisplay>
+            <SymbolDisplay>{currentSymbol}</SymbolDisplay>
+            <StatsDisplay>問題数: {questionCount}<br/><br/><br/>正解数: {correctCount}</StatsDisplay>
           </BlackBox>
           <PlayButtonContainer>
             <PlayButton onClick={handlePlayButtonClick}>

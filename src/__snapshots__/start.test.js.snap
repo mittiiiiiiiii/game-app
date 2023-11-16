@@ -3,7 +3,7 @@
 exports[`スタイルの変更を検出 Gameコンポーネントのスタイルがスナップショットと一致するか 1`] = `
 <div>
   <div
-    class="sc-jrAGKZ iIvSJL"
+    class="sc-jrAGKZ hxRQma"
   >
     <div
       class="sc-kEjbdu cVNVdt"
@@ -28,7 +28,7 @@ exports[`スタイルの変更を検出 Gameコンポーネントのスタイル
         <div
           class="sc-fFubCH fXVjJi"
         >
-          %
+          +
         </div>
         <div
           class="sc-bkzXAi hWJDuM"
@@ -63,7 +63,7 @@ exports[`スタイルの変更を検出 Gameコンポーネントのスタイル
 exports[`スタイルの変更を検出 Resultコンポーネントのスタイルがスナップショットと一致するか 1`] = `
 <div>
   <div
-    class="sc-idOjMB iXirUf"
+    class="sc-idOjMB cckHym"
   >
     <div
       class="sc-dIUfKc gdNYVY"
@@ -138,7 +138,7 @@ exports[`スタイルの変更を検出 Resultコンポーネントのスタイ�
 exports[`スタイルの変更を検出 Startコンポーネントのスタイルがスナップショットと一致するか 1`] = `
 <div>
   <div
-    class="sc-bdfCDU ddIAZG"
+    class="sc-bdfCDU ifAuVb"
   >
     <div
       class="sc-gsTDqH jLtTnb"
@@ -155,30 +155,31 @@ exports[`スタイルの変更を検出 Startコンポーネントのスタイ�
     >
       <div
         class="sc-eCstZk dwuufg"
-      />
-      <div
-        class="sc-jSguLX ckUHVo"
-        data-testid="subtitle-text"
-      >
-        NS-TYPING
-        <br />
-      </div>
-      <div
-        class="sc-gKsecS gYhtoG"
-      >
-        数字・記号専用のタイピング練習ゲーム
-        <br />
-      </div>
-      <div
-        class="sc-iBPTVF bzMfTy"
       >
         <div
-          class="sc-fubDmA fyDjHB"
+          class="sc-jSguLX ckUHVo"
+          data-testid="subtitle-text"
+        >
+          NS-TYPING
+          <br />
+        </div>
+        <div
+          class="sc-gKsecS gYhtoG"
+        >
+          数字・記号専用のタイピング練習ゲーム
+          <br />
+        </div>
+        <div
+          class="sc-iBPTVF bzMfTy"
         >
           <div
-            class="sc-pGaPU bpblVh"
+            class="sc-fubDmA fyDjHB"
           >
-            プレイする
+            <div
+              class="sc-pGaPU bpblVh"
+            >
+              プレイする
+            </div>
           </div>
         </div>
       </div>
