@@ -93,7 +93,7 @@ const TextInfo = styled.div`
   word-wrap: break-word;
 `;
 
-function Game() {
+function Result() {
   const navigate = useNavigate();
 
   const handlePlayButtonClick = () => {
@@ -109,7 +109,6 @@ function Game() {
         </TitleLabel>
         <StyledDiv>
           <BlackBox>
-            {/* Text Information */}
             <TextInfo style={{ left: '91px', top: '205px' }}>
               経過時間: <span style={{ color: '#008000' }}>00:14:26<br/></span>
               正しく打ったキーの数: <span style={{ color: '#008000' }}>10<br/></span>
@@ -118,7 +117,6 @@ function Game() {
               正確率: <span style={{ color: '#008000' }}>71.43%</span>
             </TextInfo>
 
-            {/* Play Button */}
             <PlayButtonContainer onClick={handlePlayButtonClick}>
               <PlayButtonText>タイトルに戻る</PlayButtonText>
             </PlayButtonContainer>
@@ -129,4 +127,4 @@ function Game() {
   );
 }
 
-export default Game;
+export default Result;
