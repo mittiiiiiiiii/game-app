@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
-import { useNavigate } from 'react-router-dom'; // useNavigate をインポート
+import { useNavigate } from 'react-router-dom'; 
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -19,7 +19,7 @@ const BackgroundContainer = styled.div`
   background-size: 5px 5px;
   position: relative;
   display: flex;
-  justify-content: center; // 横方向の中央揃え
+  justify-content: center; 
 `;
 
 const TitleLabel = styled.div`
@@ -46,7 +46,7 @@ const TextContainer = styled.div`
 `;
 
 const StyledDiv = styled.div`
-  width: 700px; // BlackBoxの幅に合わせる
+  width: 700px; 
   height: 100%;
   position: relative;
 `;
@@ -58,8 +58,8 @@ const BlackBox = styled.div`
   background: #1E1E1E;
   border: 10px solid yellow;
   display: flex;
-  justify-content: center; // Center the button horizontally
-  align-items: center; // Center the button vertically
+  justify-content: center; 
+  align-items: center; 
 `;
 
 const PlayButtonContainer = styled.div`
@@ -142,10 +142,10 @@ function Game() {
 
   useEffect(() => {
     if (questionCount < 10) {
-      // 新しい記号をランダムに選択
+      
       setCurrentSymbol(symbols[Math.floor(Math.random() * symbols.length)]);
     } else {
-      // 10問終了後、結果ページにリダイレクト
+     
       navigate('/result');
     }
   }, [questionCount, navigate, correctCount]);
@@ -153,9 +153,9 @@ function Game() {
   useEffect(() => {
     const handleKeyPress = (event) => {
       if (event.key === currentSymbol) {
-        setCorrectCount(correctCount + 1); // 正解数を増やす
+        setCorrectCount(correctCount + 1); 
       }
-      setQuestionCount(questionCount + 1); // 問題数を増やす
+      setQuestionCount(questionCount + 1); 
     };
   
     window.addEventListener('keypress', handleKeyPress);

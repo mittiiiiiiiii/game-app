@@ -1,6 +1,6 @@
 import React from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
-import { useNavigate } from 'react-router-dom'; // useNavigate をインポート
+import { useNavigate } from 'react-router-dom'; 
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -19,7 +19,7 @@ const BackgroundContainer = styled.div`
   background-size: 5px 5px;
   position: relative;
   display: flex;
-  justify-content: center; // 横方向の中央揃え
+  justify-content: center;
 `;
 
 const TitleLabel = styled.div`
@@ -46,7 +46,7 @@ const TextContainer = styled.div`
 `;
 
 const StyledDiv = styled.div`
-  width: 700px; // BlackBoxの幅に合わせる
+  width: 700px;
   height: 100%;
   position: relative;
 `;
@@ -113,11 +113,10 @@ const PlayButtonText = styled.div`
 `;
 
 function Start() {
-  const navigate = useNavigate(); // useNavigate フックを使用
+  const navigate = useNavigate();
 
-  // PlayButton をクリックした時の処理
   const handlePlayButtonClick = () => {
-    navigate('/game'); // '/game' にナビゲート
+    navigate('/game'); 
   };
   return (
     <>
@@ -131,7 +130,7 @@ function Start() {
           <TitleText data-testid="subtitle-text">NS-TYPING<br/></TitleText>
           <SubtitleText>数字・記号専用のタイピング練習ゲーム<br/></SubtitleText>
           <PlayButtonContainer>
-          <PlayButton onClick={handlePlayButtonClick}> {/* onClick イベントを追加 */}
+          <PlayButton onClick={handlePlayButtonClick}> 
             <PlayButtonText>プレイする</PlayButtonText>
           </PlayButton>
         </PlayButtonContainer>
