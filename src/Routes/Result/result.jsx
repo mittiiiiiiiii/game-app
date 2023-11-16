@@ -11,8 +11,8 @@ const GlobalStyle = createGlobalStyle`
 
 const BackgroundContainer = styled.div`
   box-sizing: border-box;
-  width: 100vw;
-  height: 100vh;
+  width: auto;
+  height: auto;
   padding: 150px 200px 0px;
   background-color: rgb(222, 222, 222);
   background-image: linear-gradient(rgb(236, 235, 235) 50%, transparent 50%, transparent);

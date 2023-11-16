@@ -11,8 +11,8 @@ const GlobalStyle = createGlobalStyle`
 
 const BackgroundContainer = styled.div`
   box-sizing: border-box;
-  width: 100vw;
-  height: 100vh;
+  width: auto;
+  height: auto;
   padding: 150px 200px 0px;
   background-color: rgb(222, 222, 222);
   background-image: linear-gradient(rgb(236, 235, 235) 50%, transparent 50%, transparent);
@@ -126,7 +126,7 @@ function Start() {
           <TextContainer data-testid="title-label">NS-TYPING</TextContainer>
         </TitleLabel>
         <StyledDiv>
-          <BlackBox />
+          <BlackBox>
           <TitleText data-testid="subtitle-text">NS-TYPING<br/></TitleText>
           <SubtitleText>数字・記号専用のタイピング練習ゲーム<br/></SubtitleText>
           <PlayButtonContainer>
@@ -134,6 +134,7 @@ function Start() {
             <PlayButtonText>プレイする</PlayButtonText>
           </PlayButton>
         </PlayButtonContainer>
+        </BlackBox>
         </StyledDiv>
       </BackgroundContainer>
     </>
