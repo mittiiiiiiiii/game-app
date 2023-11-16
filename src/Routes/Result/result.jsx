@@ -1,5 +1,6 @@
 import React from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
+import { useNavigate } from 'react-router-dom'; 
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -56,10 +57,49 @@ const BlackBox = styled.div`
   height: 500px;
   background: #1E1E1E;
   border: 10px solid yellow;
+  position: relative;
 `;
 
+const PlayButtonContainer = styled.div`
+  width: 138px;
+  height: 32px;
+  position: absolute;
+  left: 281px;
+  top: 425px;
+  background: #008000;
+  cursor: pointer;
+`;
+
+const PlayButtonText = styled.div`
+  width: 130px;
+  height: 18px;
+  position: absolute;
+  left: 4px;
+  top: 8px;
+  text-align: center;
+  color: white;
+  font-size: 16px;
+  font-family: Arial;
+  font-weight: 400;
+  word-wrap: break-word;
+`;
+
+const TextInfo = styled.div`
+  position: absolute;
+  color: white;
+  font-size: 20px;
+  font-family: Arial;
+  font-weight: 400;
+  word-wrap: break-word;
+`;
 
 function Game() {
+  const navigate = useNavigate();
+
+  const handlePlayButtonClick = () => {
+    navigate('/');
+  };
+
   return (
     <>
       <GlobalStyle />
@@ -68,7 +108,21 @@ function Game() {
           <TextContainer>NS-TYPING</TextContainer>
         </TitleLabel>
         <StyledDiv>
-          <BlackBox />
+          <BlackBox>
+            {/* Text Information */}
+            <TextInfo style={{ left: '91px', top: '205px' }}>
+              経過時間: <span style={{ color: '#008000' }}>00:14:26<br/></span>
+              正しく打ったキーの数: <span style={{ color: '#008000' }}>10<br/></span>
+              平均キータイプ数: <span style={{ color: '#008000' }}>0.7</span>回/秒<br/>
+              ミスタイプ数: <span style={{ color: '#008000' }}>4<br/></span>
+              正確率: <span style={{ color: '#008000' }}>71.43%</span>
+            </TextInfo>
+
+            {/* Play Button */}
+            <PlayButtonContainer onClick={handlePlayButtonClick}>
+              <PlayButtonText>タイトルに戻る</PlayButtonText>
+            </PlayButtonContainer>
+          </BlackBox>
         </StyledDiv>
       </BackgroundContainer>
     </>

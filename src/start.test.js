@@ -16,7 +16,7 @@ describe('スタイルの変更を検出', () =>{
     expect(container).toMatchSnapshot();
   });
   test('Resultコンポーネントのスタイルがスナップショットと一致するか', () => {
-    const { container } = render(<Result />);
+    const { container } = render(<Router><Result /></Router>);
     expect(container).toMatchSnapshot();
   });
 });

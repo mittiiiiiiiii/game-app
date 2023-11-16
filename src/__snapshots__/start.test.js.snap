@@ -3,7 +3,7 @@
 exports[`スタイルの変更を検出 Gameコンポーネントのスタイルがスナップショットと一致するか 1`] = `
 <div>
   <div
-    class="sc-jrAGKZ dZxmGL"
+    class="sc-jrAGKZ iIvSJL"
   >
     <div
       class="sc-kEjbdu cVNVdt"
@@ -15,10 +15,10 @@ exports[`スタイルの変更を検出 Gameコンポーネントのスタイル
       </div>
     </div>
     <div
-      class="sc-crrtmM hILKaI"
+      class="sc-crrtmM bLLuUV"
     >
       <div
-        class="sc-dQpIV SHa-dk"
+        class="sc-dQpIV kUEiDg"
       >
         <div
           class="sc-fodVRF bykgou"
@@ -78,8 +78,58 @@ exports[`スタイルの変更を検出 Resultコンポーネントのスタイ�
       class="sc-dmlpXa jkUzfL"
     >
       <div
-        class="sc-kfzCjt jGdVte"
-      />
+        class="sc-kfzCjt hhMFvI"
+      >
+        <div
+          class="sc-iwyWfK iDufqs"
+          style="left: 91px; top: 205px;"
+        >
+          経過時間: 
+          <span
+            style="color: rgb(0, 128, 0);"
+          >
+            00:14:26
+            <br />
+          </span>
+          正しく打ったキーの数: 
+          <span
+            style="color: rgb(0, 128, 0);"
+          >
+            10
+            <br />
+          </span>
+          平均キータイプ数: 
+          <span
+            style="color: rgb(0, 128, 0);"
+          >
+            0.7
+          </span>
+          回/秒
+          <br />
+          ミスタイプ数: 
+          <span
+            style="color: rgb(0, 128, 0);"
+          >
+            4
+            <br />
+          </span>
+          正確率: 
+          <span
+            style="color: rgb(0, 128, 0);"
+          >
+            71.43%
+          </span>
+        </div>
+        <div
+          class="sc-fKFygU iTUZgN"
+        >
+          <div
+            class="sc-bBXqJn bexZNy"
+          >
+            タイトルに戻る
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -88,7 +138,7 @@ exports[`スタイルの変更を検出 Resultコンポーネントのスタイ�
 exports[`スタイルの変更を検出 Startコンポーネントのスタイルがスナップショットと一致するか 1`] = `
 <div>
   <div
-    class="sc-bdfCDU mZNAa"
+    class="sc-bdfCDU ddIAZG"
   >
     <div
       class="sc-gsTDqH jLtTnb"
@@ -101,7 +151,7 @@ exports[`スタイルの変更を検出 Startコンポーネントのスタイ�
       </div>
     </div>
     <div
-      class="sc-hKgKIp kDulAR"
+      class="sc-hKgKIp loOzXI"
     >
       <div
         class="sc-eCstZk dwuufg"
@@ -125,7 +175,6 @@ exports[`スタイルの変更を検出 Startコンポーネントのスタイ�
         <div
           class="sc-fubDmA fyDjHB"
         >
-           
           <div
             class="sc-pGaPU bpblVh"
           >
