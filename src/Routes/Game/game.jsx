@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom'; // useHistoryからuseNavigateに変更
 import styled, { createGlobalStyle } from 'styled-components';
 
@@ -16,7 +16,7 @@ function Game() {
   }, [questionCount]);
 
   // キーイベントのハンドラー
-  const handleKeyPress = (event) => {
+  const handleKeyPress = useCallback((event) => {
     if (event.key === currentSymbol) {
       setCorrectCount(correctCount + 1);
     }
@@ -28,16 +28,16 @@ function Game() {
     if (questionCount >= 9) { // 10問目の問題が終わったらリザルト画面へ
       navigate('/result');
     }
-  };
+  }, [currentSymbol, correctCount, questionCount, navigate]);
 
-  // キーイベントのリスナーを追加
+  // キーイベントのリスナーを追加するためのuseEffect
   useEffect(() => {
     window.addEventListener('keypress', handleKeyPress);
 
     return () => {
       window.removeEventListener('keypress', handleKeyPress);
     };
-  }, [currentSymbol, correctCount, questionCount]);
+  }, [handleKeyPress]);
 
   // タイトルに戻るボタンのハンドラー
   const handlePlayButtonClick = () => {
