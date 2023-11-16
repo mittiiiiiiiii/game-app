@@ -12,7 +12,7 @@ describe('スタイルの変更を検出', () =>{
     expect(container).toMatchSnapshot();
   });
   test('Gameコンポーネントのスタイルがスナップショットと一致するか', () => {
-    const { container } = render(<Game />);
+    const { container } = render(<Router><Game /></Router>);
     expect(container).toMatchSnapshot();
   });
   test('Resultコンポーネントのスタイルがスナップショットと一致するか', () => {

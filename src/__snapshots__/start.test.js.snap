@@ -18,8 +18,43 @@ exports[`スタイルの変更を検出 Gameコンポーネントのスタイル
       class="sc-crrtmM hILKaI"
     >
       <div
-        class="sc-dQpIV cArNLS"
-      />
+        class="sc-dQpIV SHa-dk"
+      >
+        <div
+          class="sc-fodVRF bykgou"
+        >
+          表示された数字または記号のキーを押してください
+        </div>
+        <div
+          class="sc-fFubCH fXVjJi"
+        >
+          %
+        </div>
+        <div
+          class="sc-bkzXAi hWJDuM"
+        >
+          問題数: 
+          0
+          <br />
+          <br />
+          <br />
+          正解数: 
+          0
+        </div>
+      </div>
+      <div
+        class="sc-bqyKbq cYAASX"
+      >
+        <div
+          class="sc-kstpWv lkUoma"
+        >
+          <div
+            class="sc-hBEZvw DYxTc"
+          >
+            タイトルに戻る
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -28,22 +63,22 @@ exports[`スタイルの変更を検出 Gameコンポーネントのスタイル
 exports[`スタイルの変更を検出 Resultコンポーネントのスタイルがスナップショットと一致するか 1`] = `
 <div>
   <div
-    class="sc-bqyKbq liUYJC"
+    class="sc-idOjMB iXirUf"
   >
     <div
-      class="sc-kstpWv zVONj"
+      class="sc-dIUfKc gdNYVY"
     >
       <div
-        class="sc-hBEZvw hvDoDz"
+        class="sc-hHftZz fwkFLN"
       >
         NS-TYPING
       </div>
     </div>
     <div
-      class="sc-fodVRF jGMEhU"
+      class="sc-dmlpXa jkUzfL"
     >
       <div
-        class="sc-fFubCH ixroZQ"
+        class="sc-kfzCjt jGdVte"
       />
     </div>
   </div>

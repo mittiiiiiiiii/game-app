@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
+import { useNavigate } from 'react-router-dom'; // useNavigate をインポート
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -56,10 +57,118 @@ const BlackBox = styled.div`
   height: 500px;
   background: #1E1E1E;
   border: 10px solid yellow;
+  display: flex;
+  justify-content: center; // Center the button horizontally
+  align-items: center; // Center the button vertically
+`;
+
+const PlayButtonContainer = styled.div`
+  width: 100px;
+  height: 45px;
+  position: absolute;
+  left: 300px;
+  top: 329px;
+`;
+
+const PlayButton = styled.div`
+  width: 138px; 
+  height: 32px;
+  position: absolute;
+  background: #008000;
+`;
+
+const PlayButtonText = styled.div`
+  width: 130px;
+  height: 18px;
+  position: absolute;
+  left: 4px; 
+  top: 8px; 
+  text-align: center; 
+  color: white; 
+  font-size: 16px; 
+  font-family: Arial; 
+  font-weight: 400; 
+  word-wrap: break-word
 `;
 
 
+const InstructionText = styled.div`
+  width: 435px;
+  height: 19px;
+  position: absolute;
+  left: 132px;
+  top: 70px;
+  text-align: center;
+  color: white;
+  font-size: 16px;
+  font-family: Arial;
+  font-weight: 400;
+  word-wrap: break-word;
+`;
+
+const SymbolDisplay = styled.div`
+  width: 154px;
+  height: 110px;
+  position: absolute;
+  left: 273px;
+  top: 187px;
+  text-align: center;
+  color: white;
+  font-size: 90px;
+  font-family: Arial;
+  font-weight: 400;
+  word-wrap: break-word;
+`;
+
+const StatsDisplay = styled.div`
+  width: 91px;
+  height: 92px;
+  position: absolute;
+  left: 67px;
+  top: 352px;
+  color: white;
+  font-size: 16px;
+  font-family: Arial;
+  font-weight: 400;
+  word-wrap: break-word;
+`;
+
 function Game() {
+  const navigate = useNavigate();
+  const [currentSymbol, setCurrentSymbol] = useState('');
+  const [questionCount, setQuestionCount] = useState(0);
+  const [correctCount, setCorrectCount] = useState(0);
+  const symbols = ['@', '#', '$', '%', '&', '*', '!', '?', '+', '=']; // 使用する記号
+
+  useEffect(() => {
+    if (questionCount < 10) {
+      // 新しい記号をランダムに選択
+      setCurrentSymbol(symbols[Math.floor(Math.random() * symbols.length)]);
+    } else {
+      // 10問終了後、結果ページにリダイレクト
+      navigate('/result');
+    }
+  }, [questionCount, navigate, correctCount]);
+
+  useEffect(() => {
+    const handleKeyPress = (event) => {
+      if (event.key === currentSymbol) {
+        setCorrectCount(correctCount + 1); // 正解数を増やす
+      }
+      setQuestionCount(questionCount + 1); // 問題数を増やす
+    };
+  
+    window.addEventListener('keypress', handleKeyPress);
+  
+    return () => {
+      window.removeEventListener('keypress', handleKeyPress);
+    };
+  }, [currentSymbol, questionCount, correctCount]);
+  
+  const handlePlayButtonClick = () => {
+    navigate('/');
+  };
+
   return (
     <>
       <GlobalStyle />
@@ -68,7 +177,16 @@ function Game() {
           <TextContainer>NS-TYPING</TextContainer>
         </TitleLabel>
         <StyledDiv>
-          <BlackBox />
+          <BlackBox>
+            <InstructionText>表示された数字または記号のキーを押してください</InstructionText>
+              <SymbolDisplay>{currentSymbol}</SymbolDisplay>
+              <StatsDisplay>問題数: {questionCount}<br/><br/><br/>正解数: {correctCount}</StatsDisplay>
+          </BlackBox>
+          <PlayButtonContainer>
+            <PlayButton onClick={handlePlayButtonClick}>
+              <PlayButtonText>タイトルに戻る</PlayButtonText>
+            </PlayButton>
+          </PlayButtonContainer>
         </StyledDiv>
       </BackgroundContainer>
     </>
