@@ -2,6 +2,37 @@ import React from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
 import { useNavigate } from 'react-router-dom'; 
 
+function Start() {
+  const navigate = useNavigate();
+
+  const handlePlayButtonClick = () => {
+    navigate('/game'); 
+  };
+  return (
+    <>
+      <GlobalStyle />
+      <BackgroundContainer>
+        <TitleLabel>
+          <TextContainer data-testid="title-label">NS-TYPING</TextContainer>
+        </TitleLabel>
+        <StyledDiv>
+          <BlackBox>
+          <TitleText data-testid="subtitle-text">NS-TYPING<br/></TitleText>
+          <SubtitleText>数字・記号専用のタイピング練習ゲーム<br/></SubtitleText>
+          <PlayButtonContainer>
+          <PlayButton onClick={handlePlayButtonClick}> 
+            <PlayButtonText>プレイする</PlayButtonText>
+          </PlayButton>
+        </PlayButtonContainer>
+        </BlackBox>
+        </StyledDiv>
+      </BackgroundContainer>
+    </>
+  );
+}
+
+export default Start;
+
 const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
@@ -111,34 +142,3 @@ const PlayButtonText = styled.div`
   font-family: Arial;
   font-weight: 400;
 `;
-
-function Start() {
-  const navigate = useNavigate();
-
-  const handlePlayButtonClick = () => {
-    navigate('/game'); 
-  };
-  return (
-    <>
-      <GlobalStyle />
-      <BackgroundContainer>
-        <TitleLabel>
-          <TextContainer data-testid="title-label">NS-TYPING</TextContainer>
-        </TitleLabel>
-        <StyledDiv>
-          <BlackBox>
-          <TitleText data-testid="subtitle-text">NS-TYPING<br/></TitleText>
-          <SubtitleText>数字・記号専用のタイピング練習ゲーム<br/></SubtitleText>
-          <PlayButtonContainer>
-          <PlayButton onClick={handlePlayButtonClick}> 
-            <PlayButtonText>プレイする</PlayButtonText>
-          </PlayButton>
-        </PlayButtonContainer>
-        </BlackBox>
-        </StyledDiv>
-      </BackgroundContainer>
-    </>
-  );
-}
-
-export default Start;

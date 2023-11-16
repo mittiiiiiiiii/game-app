@@ -2,6 +2,43 @@ import React from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
 import { useNavigate } from 'react-router-dom'; 
 
+
+function Result() {
+  const navigate = useNavigate();
+
+  const handlePlayButtonClick = () => {
+    navigate('/');
+  };
+
+  return (
+    <>
+      <GlobalStyle />
+      <BackgroundContainer>
+        <TitleLabel>
+          <TextContainer>NS-TYPING</TextContainer>
+        </TitleLabel>
+        <StyledDiv>
+          <BlackBox>
+            <TextInfo style={{ left: '91px', top: '205px' }}>
+              経過時間: <span style={{ color: '#008000' }}>00:14:26<br/></span>
+              正しく打ったキーの数: <span style={{ color: '#008000' }}>10<br/></span>
+              平均キータイプ数: <span style={{ color: '#008000' }}>0.7</span>回/秒<br/>
+              ミスタイプ数: <span style={{ color: '#008000' }}>4<br/></span>
+              正確率: <span style={{ color: '#008000' }}>71.43%</span>
+            </TextInfo>
+
+            <PlayButtonContainer onClick={handlePlayButtonClick}>
+              <PlayButtonText>タイトルに戻る</PlayButtonText>
+            </PlayButtonContainer>
+          </BlackBox>
+        </StyledDiv>
+      </BackgroundContainer>
+    </>
+  );
+}
+
+export default Result;
+
 const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
@@ -92,39 +129,3 @@ const TextInfo = styled.div`
   font-weight: 400;
   word-wrap: break-word;
 `;
-
-function Result() {
-  const navigate = useNavigate();
-
-  const handlePlayButtonClick = () => {
-    navigate('/');
-  };
-
-  return (
-    <>
-      <GlobalStyle />
-      <BackgroundContainer>
-        <TitleLabel>
-          <TextContainer>NS-TYPING</TextContainer>
-        </TitleLabel>
-        <StyledDiv>
-          <BlackBox>
-            <TextInfo style={{ left: '91px', top: '205px' }}>
-              経過時間: <span style={{ color: '#008000' }}>00:14:26<br/></span>
-              正しく打ったキーの数: <span style={{ color: '#008000' }}>10<br/></span>
-              平均キータイプ数: <span style={{ color: '#008000' }}>0.7</span>回/秒<br/>
-              ミスタイプ数: <span style={{ color: '#008000' }}>4<br/></span>
-              正確率: <span style={{ color: '#008000' }}>71.43%</span>
-            </TextInfo>
-
-            <PlayButtonContainer onClick={handlePlayButtonClick}>
-              <PlayButtonText>タイトルに戻る</PlayButtonText>
-            </PlayButtonContainer>
-          </BlackBox>
-        </StyledDiv>
-      </BackgroundContainer>
-    </>
-  );
-}
-
-export default Result;

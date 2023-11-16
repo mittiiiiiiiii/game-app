@@ -2,6 +2,69 @@ import React, { useState, useEffect } from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
 import { useNavigate } from 'react-router-dom'; 
 
+const symbols = ['@', '#', '$', '%', '&', '*', '!', '?', '+', '=']; // 外に移動
+
+function Game() {
+  const navigate = useNavigate();
+  const [currentSymbol, setCurrentSymbol] = useState('');
+  const [questionCount, setQuestionCount] = useState(0);
+  const [correctCount, setCorrectCount] = useState(0);
+  
+  useEffect(() => {
+    if (questionCount < 10) {
+      
+      setCurrentSymbol(symbols[Math.floor(Math.random() * symbols.length)]);
+    } else {
+     
+      navigate('/result');
+    }
+  }, [questionCount, navigate, correctCount]);
+
+  useEffect(() => {
+    const handleKeyPress = (event) => {
+      if (event.key === currentSymbol) {
+        setCorrectCount(correctCount + 1); 
+      }
+      setQuestionCount(questionCount + 1); 
+    };
+  
+    window.addEventListener('keypress', handleKeyPress);
+  
+    return () => {
+      window.removeEventListener('keypress', handleKeyPress);
+    };
+  }, [currentSymbol, questionCount, correctCount]);
+  
+  const handlePlayButtonClick = () => {
+    navigate('/');
+  };
+
+  return (
+    <>
+      <GlobalStyle />
+      <BackgroundContainer>
+        <TitleLabel>
+          <TextContainer>NS-TYPING</TextContainer>
+        </TitleLabel>
+        <StyledDiv>
+          <BlackBox>
+            <InstructionText>表示された数字または記号のキーを押してください</InstructionText>
+              <SymbolDisplay>{currentSymbol}</SymbolDisplay>
+              <StatsDisplay>問題数: {questionCount}<br/><br/><br/>正解数: {correctCount}</StatsDisplay>
+          </BlackBox>
+          <PlayButtonContainer>
+            <PlayButton onClick={handlePlayButtonClick}>
+              <PlayButtonText>タイトルに戻る</PlayButtonText>
+            </PlayButton>
+          </PlayButtonContainer>
+        </StyledDiv>
+      </BackgroundContainer>
+    </>
+  );
+}
+
+export default Game;
+
 const GlobalStyle = createGlobalStyle`
   body {
     margin: 0;
@@ -132,66 +195,3 @@ const StatsDisplay = styled.div`
   font-weight: 400;
   word-wrap: break-word;
 `;
-
-const symbols = ['@', '#', '$', '%', '&', '*', '!', '?', '+', '=']; // 外に移動
-
-function Game() {
-  const navigate = useNavigate();
-  const [currentSymbol, setCurrentSymbol] = useState('');
-  const [questionCount, setQuestionCount] = useState(0);
-  const [correctCount, setCorrectCount] = useState(0);
-  
-  useEffect(() => {
-    if (questionCount < 10) {
-      
-      setCurrentSymbol(symbols[Math.floor(Math.random() * symbols.length)]);
-    } else {
-     
-      navigate('/result');
-    }
-  }, [questionCount, navigate, correctCount]);
-
-  useEffect(() => {
-    const handleKeyPress = (event) => {
-      if (event.key === currentSymbol) {
-        setCorrectCount(correctCount + 1); 
-      }
-      setQuestionCount(questionCount + 1); 
-    };
-  
-    window.addEventListener('keypress', handleKeyPress);
-  
-    return () => {
-      window.removeEventListener('keypress', handleKeyPress);
-    };
-  }, [currentSymbol, questionCount, correctCount]);
-  
-  const handlePlayButtonClick = () => {
-    navigate('/');
-  };
-
-  return (
-    <>
-      <GlobalStyle />
-      <BackgroundContainer>
-        <TitleLabel>
-          <TextContainer>NS-TYPING</TextContainer>
-        </TitleLabel>
-        <StyledDiv>
-          <BlackBox>
-            <InstructionText>表示された数字または記号のキーを押してください</InstructionText>
-              <SymbolDisplay>{currentSymbol}</SymbolDisplay>
-              <StatsDisplay>問題数: {questionCount}<br/><br/><br/>正解数: {correctCount}</StatsDisplay>
-          </BlackBox>
-          <PlayButtonContainer>
-            <PlayButton onClick={handlePlayButtonClick}>
-              <PlayButtonText>タイトルに戻る</PlayButtonText>
-            </PlayButton>
-          </PlayButtonContainer>
-        </StyledDiv>
-      </BackgroundContainer>
-    </>
-  );
-}
-
-export default Game;
