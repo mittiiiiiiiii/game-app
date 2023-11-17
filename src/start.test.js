@@ -88,5 +88,21 @@ describe('Result コンポーネント', () => {
     expect(headerLabel).toBeVisible();
     expect(headerLabel).toHaveTextContent('NS-TYPING');
 
+    // 経過時間、正しく打ったキーの数、平均キータイプ数、ミスタイプ数、正確率のテキストをテスト
+    expect(screen.getByText(/経過時間:/)).toBeInTheDocument();
+    expect(screen.getByText(/正しく打ったキーの数:/)).toBeInTheDocument();
+    expect(screen.getByText(/平均キータイプ数:/)).toBeInTheDocument();
+    expect(screen.getByText(/回\/秒/)).toBeInTheDocument();
+    expect(screen.getByText(/ミスタイプ数:/)).toBeInTheDocument();
+    expect(screen.getByText(/正確率:/)).toBeInTheDocument();
+    expect(screen.getByText('%')).toBeInTheDocument();
+  });
+  test('リターンボタンが存在するか', () => {
+    render(<Router><Result /></Router>);
+
+    // プレイボタンのテキストをテスト
+    const playButton = screen.getByText('タイトルに戻る');
+    expect(playButton).toBeInTheDocument();
+    expect(playButton).toBeVisible();
   });
 });
