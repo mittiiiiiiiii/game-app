@@ -2,7 +2,7 @@ import React from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
 
 // コンポーネント定義
-const Start = () => {
+const Game = () => {
   return (
     <>
       <GlobalStyle />
@@ -17,20 +17,20 @@ const Start = () => {
   );
 };
 
-export default Start;
+export default Game;
 
 // グローバルスタイルを追加
 const GlobalStyle = createGlobalStyle`
   body {
-    margin: 0;    // ブラウザのデフォルトマージンをゼロに
-    padding: 0;   // ブラウザのデフォルトパディングをゼロに
-    overflow: hidden; // スクロールを無効に
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
   }
 `;
 
 const Container = styled.div`
-  width: 100vw;   // 画面の幅に合わせる
-  height: 100vh;  // 画面の高さに合わせる
+  width: 100vw;
+  height: 100vh;
   position: relative;
 `;
 
@@ -47,20 +47,8 @@ const Background = styled.div`
   justify-content: center;
 `;
 
-
-const BlackBoxContainer = styled.div`
-  width: 700px;
-  height: 500px;
-  position: absolute;
-  left: 50%;             // 親要素に対して左から50%の位置に設定
-  top: 160px;
-  transform: translateX(-50%); // X軸方向に自身の幅の50%分だけ左に移動
-  background: #1E1E1E;
-  border: 10px solid yellow;    // 黄色の枠を追加
-`;
-
 const Header = styled.div`
-  width: 100%;  // 親要素の幅に合わせる
+  width: 100%;
   height: 80px;
   position: absolute;
   top: 0;
@@ -74,5 +62,16 @@ const Header = styled.div`
   align-items: center;
   text-transform: uppercase;
   letter-spacing: 3.5px;
-  text-shadow: 2px 2px 1px rgba(0, 0, 0, 1); // 完全に不透明な黒の影
+  text-shadow: 2px 2px 1px rgba(0, 0, 0, 1);
+`;
+
+const BlackBoxContainer = styled.div`
+  width: 700px;
+  height: 500px;
+  position: absolute;
+  left: 50%;
+  top: 160px;
+  transform: translateX(-50%);
+  background: #1E1E1E;
+  border: 10px solid yellow;
 `;

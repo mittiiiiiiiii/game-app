@@ -3,23 +3,25 @@ import { render, screen } from '@testing-library/react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import '@testing-library/jest-dom';
 import Start from './Routes/Start/start';
+import Game from './Routes/Game/game';
+import Result from './Routes/Result/result';
 
 describe('Start コンポーネント', () => {
   // 期待されたテキストで正しくレンダリングされるかのテスト
   test('期待されたテキストで正しくレンダリングされる', () => {
     render(<Router><Start /></Router>);
 
+     // Header のテキストをテスト
+    const headerLabel = screen.getByTestId('header-label');
+    expect(headerLabel).toBeInTheDocument();
+    expect(headerLabel).toBeVisible();
+    expect(headerLabel).toHaveTextContent('NS-TYPING');
+
     // Title のテキストをテスト
     const titleLabel = screen.getByTestId('title-label');
     expect(titleLabel).toBeInTheDocument();
     expect(titleLabel).toBeVisible();
     expect(titleLabel).toHaveTextContent('NS-TYPING');
-
-    // Header のテキストをテスト
-    const headerLabel = screen.getByTestId('header-label');
-    expect(headerLabel).toBeInTheDocument();
-    expect(headerLabel).toBeVisible();
-    expect(headerLabel).toHaveTextContent('NS-TYPING');
 
     // Description のテキストをテスト
     const descriptionText = screen.getByText('数字・記号専用のタイピング練習ゲーム');
@@ -36,5 +38,33 @@ describe('Start コンポーネント', () => {
     const playButton = screen.getByText('プレイする');
     expect(playButton).toBeInTheDocument();
     expect(playButton).toBeVisible();
+  });
+});
+
+describe('Game コンポーネント', () => {
+  // 期待されたテキストで正しくレンダリングされるかのテスト
+  test('期待されたテキストで正しくレンダリングされる', () => {
+    render(<Router><Game /></Router>);
+
+     // Header のテキストをテスト
+    const headerLabel = screen.getByTestId('header-label');
+    expect(headerLabel).toBeInTheDocument();
+    expect(headerLabel).toBeVisible();
+    expect(headerLabel).toHaveTextContent('NS-TYPING');
+
+  });
+});
+
+describe('Result コンポーネント', () => {
+  // 期待されたテキストで正しくレンダリングされるかのテスト
+  test('期待されたテキストで正しくレンダリングされる', () => {
+    render(<Router><Result /></Router>);
+
+     // Header のテキストをテスト
+    const headerLabel = screen.getByTestId('header-label');
+    expect(headerLabel).toBeInTheDocument();
+    expect(headerLabel).toBeVisible();
+    expect(headerLabel).toHaveTextContent('NS-TYPING');
+
   });
 });
