@@ -1,109 +1,53 @@
 import React from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
-import { useNavigate } from 'react-router-dom'; 
 
-function Start() {
-  const navigate = useNavigate();
-
-  const handlePlayButtonClick = () => {
-    navigate('/game'); 
-  };
-  return (
-    <>
-      <GlobalStyle />
-      <BackgroundContainer>
-        <TitleLabel>
-          <TextContainer data-testid="title-label">NS-TYPING</TextContainer>
-        </TitleLabel>
-        <StyledDiv>
-          <BlackBox>
-          <TitleText data-testid="subtitle-text">NS-TYPING<br/></TitleText>
-          <SubtitleText>数字・記号専用のタイピング練習ゲーム<br/></SubtitleText>
-          <PlayButtonContainer>
-          <PlayButton onClick={handlePlayButtonClick}> 
-            <PlayButtonText>プレイする</PlayButtonText>
-          </PlayButton>
-        </PlayButtonContainer>
-        </BlackBox>
-        </StyledDiv>
-      </BackgroundContainer>
-    </>
-  );
-}
-
-export default Start;
-
+// グローバルスタイルを追加
 const GlobalStyle = createGlobalStyle`
   body {
-    margin: 0;
-    padding: 0;
+    margin: 0;    // ブラウザのデフォルトマージンをゼロに
+    padding: 0;   // ブラウザのデフォルトパディングをゼロに
+    overflow: hidden; // スクロールを無効に
   }
 `;
 
-const BackgroundContainer = styled.div`
-  box-sizing: border-box;
-  width: 100vw; // Set width to 100% of the viewport width
-  min-height: 100vh; // Set minimum height to 100% of the viewport height
-  padding: 150px 200px 0px;
-  background-color: rgb(222, 222, 222);
-  background-image: linear-gradient(rgb(236, 235, 235) 50%, transparent 50%, transparent);
-  background-size: 5px 5px;
+const Container = styled.div`
+  width: 100vw;   // 画面の幅に合わせる
+  height: 100vh;  // 画面の高さに合わせる
   position: relative;
-  display: flex;
-  justify-content: center;
 `;
 
-const TitleLabel = styled.div`
-  width: 100%;
-  height: 80px;
-  background: green;
+const BackgroundImage = styled.img`
+  width: 1440px;
+  height: 1024px;
   position: absolute;
-  left: 0;
   top: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  left: 0;
 `;
 
-const TextContainer = styled.div`
-  text-align: center;
-  color: white;
-  font-size: 70px;
-  font-family: Impact, sans-serif;
-  font-weight: 400;
-  text-transform: uppercase;
-  word-wrap: break-word;
-  text-shadow: 2px 2px black;
-`;
-
-const StyledDiv = styled.div`
-  width: 700px;
-  height: 100%;
-  position: relative;
-`;
-
-
-const BlackBox = styled.div`
+const InnerContainer = styled.div`
   width: 700px;
   height: 500px;
+  position: absolute;
+  left: 50%;             // 親要素に対して左から50%の位置に設定
+  top: 160px;
+  transform: translateX(-50%); // X軸方向に自身の幅の50%分だけ左に移動
   background: #1E1E1E;
-  border: 10px solid yellow;
+  border: 2px solid yellow;    // 黄色の枠を追加
 `;
 
-const TitleText = styled.div`
+const Title = styled.div`
   width: 179px;
   height: 45px;
   position: absolute;
   left: 260px;
   top: 52px;
-  text-align: center;
   color: white;
   font-size: 40px;
   font-family: Impact;
-  font-weight: 400;
+  text-align: center;
 `;
 
-const SubtitleText = styled.div`
+const Description = styled.div`
   width: 292px;
   height: 19px;
   position: absolute;
@@ -112,33 +56,59 @@ const SubtitleText = styled.div`
   color: white;
   font-size: 16px;
   font-family: Arial;
-  font-weight: 400;
-`;
-
-const PlayButtonContainer = styled.div`
-  width: 100px;
-  height: 45px;
-  position: absolute;
-  left: 300px;
-  top: 329px;
+  text-align: center;
 `;
 
 const PlayButton = styled.div`
   width: 100px;
   height: 45px;
   position: absolute;
+  left: 300px;
+  top: 329px;
   background: #008000;
-`;
-
-const PlayButtonText = styled.div`
-  width: 84px;
-  height: 18px;
-  position: absolute;
-  left: 8px;
-  top: 12px;
-  text-align: center;
   color: white;
   font-size: 16px;
   font-family: Arial;
-  font-weight: 400;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
 `;
+
+const Header = styled.div`
+  width: 100%;  // 親要素の幅に合わせる
+  height: 80px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: #008000;
+  color: white;
+  font-size: 70px;
+  font-family: Impact;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: uppercase;
+  letter-spacing: 3.5px;
+`;
+
+
+// コンポーネント定義
+const Start = () => {
+  return (
+    <>
+      <GlobalStyle />
+      <Container>
+        <BackgroundImage src="https://via.placeholder.com/1440x1024" />
+        <InnerContainer>
+          <Title>NS-TYPING</Title>
+          <Description>数字・記号専用のタイピング練習ゲーム</Description>
+          <PlayButton>プレイする</PlayButton>
+        </InnerContainer>
+        <Header>NS-TYPING</Header>
+      </Container>
+    </>
+  );
+};
+
+export default Start;
