@@ -123,6 +123,7 @@ const PlayButtonText = styled.div`
   word-wrap: break-word;
 `;
 
+
 const TextInfo = styled.div`
   position: absolute;
   color: white;

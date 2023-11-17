@@ -170,13 +170,14 @@ const BlackBox = styled.div`
 `;
 
 const PlayButtonContainer = styled.div`
-  width: 138px;
-  height: 32px;
-  position: absolute;
-  left: 281px;
-  top: 425px;
-  background: #008000;
-  cursor: pointer;
+width: 138px;
+height: 32px;
+position: absolute;
+left: 50%;
+top: 425px; // 縦方向の位置を固定
+transform: translateX(-50%); // 横方向にのみ中央に調整
+background: #008000;
+cursor: pointer;
 `;
 
 const PlayButtonText = styled.div`
