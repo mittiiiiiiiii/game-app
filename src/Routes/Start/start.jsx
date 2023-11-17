@@ -1,8 +1,16 @@
 import React from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
+import { useNavigate } from 'react-router-dom'; 
 
 // コンポーネント定義
 const Start = () => {
+  const navigate = useNavigate();
+
+  //Gameコンポーネントに遷移
+  const handlePlayButtonClick = () => {
+    navigate('/game'); 
+  };
+
   return (
     <>
       <GlobalStyle />
@@ -12,7 +20,7 @@ const Start = () => {
             <BlackBoxContainer>
               <Title data-testid="title-label">NS-TYPING</Title>
               <Description>数字・記号専用のタイピング練習ゲーム</Description>
-              <PlayButton>プレイする</PlayButton>
+              <PlayButton onClick={handlePlayButtonClick}>プレイする</PlayButton>
             </BlackBoxContainer>
         </Container>
     </>
