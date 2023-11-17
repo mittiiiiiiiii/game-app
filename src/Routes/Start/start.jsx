@@ -16,13 +16,21 @@ const Container = styled.div`
   position: relative;
 `;
 
-const BackgroundImage = styled.img`
-  width: 1440px;
-  height: 1024px;
+const BackgroundImage = styled.div`
+  width: 100vw;
+  height: 100vh;
   position: absolute;
   top: 0;
   left: 0;
+  background: repeating-linear-gradient(
+    90deg,  // 縦方向のグラデーション
+    white,  // 白色
+    white 10px,  // 白色 10px まで
+    grey 10px,  // グレー色 10px から
+    grey 20px  // グレー色 20px まで
+  );
 `;
+
 
 const InnerContainer = styled.div`
   width: 700px;
@@ -32,7 +40,7 @@ const InnerContainer = styled.div`
   top: 160px;
   transform: translateX(-50%); // X軸方向に自身の幅の50%分だけ左に移動
   background: #1E1E1E;
-  border: 2px solid yellow;    // 黄色の枠を追加
+  border: 10px solid yellow;    // 黄色の枠を追加
 `;
 
 const Title = styled.div`
@@ -90,6 +98,7 @@ const Header = styled.div`
   align-items: center;
   text-transform: uppercase;
   letter-spacing: 3.5px;
+  text-shadow: 2px 2px 1px rgba(0, 0, 0, 1); // 完全に不透明な黒の影
 `;
 
 
@@ -99,7 +108,7 @@ const Start = () => {
     <>
       <GlobalStyle />
       <Container>
-        <BackgroundImage src="https://via.placeholder.com/1440x1024" />
+        <BackgroundImage/>
         <InnerContainer>
           <Title>NS-TYPING</Title>
           <Description>数字・記号専用のタイピング練習ゲーム</Description>
