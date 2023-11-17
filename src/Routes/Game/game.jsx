@@ -13,39 +13,19 @@ function Game() {
   const [currentSymbol, setCurrentSymbol] = useState('');
   const [questionCount, setQuestionCount] = useState(0);
   const [correctCount, setCorrectCount] = useState(0);
-  const [startTime, setStartTime] = useState(null);
-  const [elapsedTime, setElapsedTime] = useState(0);
   const [mistypeCount, setMistypeCount] = useState(0);
-  const [timer, setTimer] = useState(null);
-
-  useEffect(() => {
-    const start = new Date();
-
-    // タイマーをセットして経過時間を更新
-    const newTimer = setInterval(() => {
-      const now = new Date();
-      setElapsedTime(Math.floor((now - start) / 1000));
-    }, 1000); // 1秒ごとに更新
-
-    setTimer(newTimer);
-
-    return () => {
-      clearInterval(newTimer); // コンポーネントがアンマウントされたときにタイマーをクリア
-    };
-  }, []);
-
+  const [elapsedTime, setElapsedTime] = useState(0);
 
   // ゲーム開始時の処理
   useEffect(() => {
     const start = new Date();
-    setStartTime(start);
 
-    return () => {
-      if (startTime) {
-        const end = new Date();
-        setElapsedTime((end - startTime) / 1000); // 秒単位で計算
-      }
-    };
+    const newTimer = setInterval(() => {
+      const now = new Date();
+      setElapsedTime(Math.floor((now - start) / 1000));
+    }, 1000);
+
+    return () => clearInterval(newTimer);
   }, []);
   
   // ランダムな記号を選択
@@ -58,22 +38,28 @@ function Game() {
     if (event.key === currentSymbol) {
       setCorrectCount(correctCount + 1);
   
-      // 正解の場合のみ問題数をカウントアップ
-      if (questionCount < 9) { // 10問目に達する前にカウントアップ
+      if (questionCount < 9) {
         setQuestionCount(questionCount + 1);
-      } else if (questionCount === 9) { // 10問目の正解でリザルト画面へ
-        navigate('/result');
+      } else if (questionCount === 9) {
+        const totalTime = elapsedTime;
+        // 平均キータイプ数の計算：タイプした合計数（正解数＋ミスタイプ数）を経過時間で割る
+        const averageKeystrokes = (correctCount + mistypeCount) / totalTime;
+        navigate('/result', {
+          state: {
+            elapsedTime: totalTime,
+            correctCount: correctCount + 1,
+            mistypeCount: mistypeCount,
+            accuracy: (((correctCount + 1) / (correctCount + mistypeCount + 1)) * 100).toFixed(2),
+            averageKeystrokes: averageKeystrokes.toFixed(2)
+          }
+        });
       }
     } else {
       setMistypeCount(mistypeCount + 1);
     }
-  }, [currentSymbol, correctCount, mistypeCount, questionCount, navigate]);
-
-  useEffect(() => {
-    if (questionCount < 10) {
-      setCurrentSymbol(symbols[Math.floor(Math.random() * symbols.length)]);
-    }
-  }, [questionCount]);
+  }, [currentSymbol, correctCount, mistypeCount, questionCount, navigate, elapsedTime]);
+  
+  
 
   // キーイベントのリスナーを追加するためのuseEffect
   useEffect(() => {
@@ -85,7 +71,7 @@ function Game() {
   }, [handleKeyPress]);
 
    // 正確率の計算
-   const accuracy = ((correctCount / (correctCount + mistypeCount)) * 100).toFixed(2);
+   //const accuracy = ((correctCount / (correctCount + mistypeCount)) * 100).toFixed(2);
 
   // タイトルに戻るボタンのハンドラー
   const handlePlayButtonClick = () => {
@@ -103,19 +89,17 @@ function Game() {
           <BlackBox>
             <InstructionText>表示された数字または記号のキーを押してください</InstructionText>
             <SymbolDisplay>{currentSymbol}</SymbolDisplay>
-            {/*<StatsDisplay>問題数: {questionCount}<br/><br/><br/>正解数: {correctCount}</StatsDisplay>*/}
-            <StatsDisplay>
+            <StatsDisplay>問題数: {questionCount}<br/><br/><br/>正解数: {correctCount}</StatsDisplay>
+            {/*<StatsDisplay>
               経過時間: {elapsedTime}秒<br/>
               問題数: {questionCount}<br/>
               正解数: {correctCount}<br/>
               ミスタイプ数: {mistypeCount}<br/>
               正確率: {accuracy}%
-            </StatsDisplay>
+              </StatsDisplay>*/}
           </BlackBox>
-          <PlayButtonContainer>
-            <PlayButton onClick={handlePlayButtonClick}>
+          <PlayButtonContainer onClick={handlePlayButtonClick}>
               <PlayButtonText>タイトルに戻る</PlayButtonText>
-            </PlayButton>
           </PlayButtonContainer>
         </StyledDiv>
       </BackgroundContainer>
@@ -186,32 +170,27 @@ const BlackBox = styled.div`
 `;
 
 const PlayButtonContainer = styled.div`
-  width: 100px;
-  height: 45px;
-  position: absolute;
-  left: 300px;
-  top: 329px;
-`;
-
-const PlayButton = styled.div`
-  width: 138px; 
+  width: 138px;
   height: 32px;
   position: absolute;
+  left: 281px;
+  top: 425px;
   background: #008000;
+  cursor: pointer;
 `;
 
 const PlayButtonText = styled.div`
   width: 130px;
   height: 18px;
   position: absolute;
-  left: 4px; 
-  top: 8px; 
-  text-align: center; 
-  color: white; 
-  font-size: 16px; 
-  font-family: Arial; 
-  font-weight: 400; 
-  word-wrap: break-word
+  left: 4px;
+  top: 8px;
+  text-align: center;
+  color: white;
+  font-size: 16px;
+  font-family: Arial;
+  font-weight: 400;
+  word-wrap: break-word;
 `;
 
 

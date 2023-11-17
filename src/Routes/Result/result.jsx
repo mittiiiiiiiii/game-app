@@ -1,10 +1,13 @@
 import React from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
-import { useNavigate } from 'react-router-dom'; 
+import { useNavigate, useLocation } from 'react-router-dom'; 
 
 
 function Result() {
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const { elapsedTime, correctCount, mistypeCount, accuracy, averageKeystrokes } = location.state;
 
   const handlePlayButtonClick = () => {
     navigate('/');
@@ -19,14 +22,13 @@ function Result() {
         </TitleLabel>
         <StyledDiv>
           <BlackBox>
-            <TextInfo style={{ left: '91px', top: '205px' }}>
-              経過時間: <span style={{ color: '#008000' }}>00:14:26<br/></span>
-              正しく打ったキーの数: <span style={{ color: '#008000' }}>10<br/></span>
-              平均キータイプ数: <span style={{ color: '#008000' }}>0.7</span>回/秒<br/>
-              ミスタイプ数: <span style={{ color: '#008000' }}>4<br/></span>
-              正確率: <span style={{ color: '#008000' }}>71.43%</span>
-            </TextInfo>
-
+          <TextInfo style={{ left: '91px', top: '205px' }}>
+        ・経過時間: <span style={{ color: '#008000' }}>{elapsedTime}秒<br/></span>
+        ・正しく打ったキーの数: <span style={{ color: '#008000' }}>{correctCount}<br/></span>
+        ・平均キータイプ数: <span style={{ color: '#008000' }}>{averageKeystrokes}</span>回/秒<br/>
+        ・ミスタイプ数: <span style={{ color: '#008000' }}>{mistypeCount}<br/></span>
+        ・正確率: <span style={{ color: '#008000' }}>{accuracy}%</span>
+      </TextInfo>
             <PlayButtonContainer onClick={handlePlayButtonClick}>
               <PlayButtonText>タイトルに戻る</PlayButtonText>
             </PlayButtonContainer>

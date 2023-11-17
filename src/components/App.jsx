@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route , Navigate } from 'react-router-dom';
 import Start from '../Routes/Start/index';
 import Game from '../Routes/Game/index';
 import Result from '../Routes/Result/index';
@@ -18,7 +18,7 @@ function App() {
         <Route path="/result" element={<Result />} />
 
         {/* 未定義のパスにアクセスした場合、スタートページへリダイレクト */}
-        {/*<Route path="*" element={<Navigate to="/" replace />} />*/}
+        {<Route path="*" element={<Navigate to="/" replace />} />}
       </Routes>
     </BrowserRouter>
   );
