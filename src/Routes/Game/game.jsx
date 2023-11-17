@@ -2,14 +2,52 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom'; // useHistoryからuseNavigateに変更
 import styled, { createGlobalStyle } from 'styled-components';
 
-const symbols = ['@', '#', '$', '%', '&', '*', '!', '?', '+', '='];
+const symbols = ['@', '#', '$', '%', '&', '*', '!', '?', '+', '=', 
+                 '<', '>', '/', '\\', '|', '^', '~', '`', '_', '-', 
+                 '(', ')', '{', '}', '[', ']', '.', ',', ';', ':', '"', "'",
+                 '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+
 
 function Game() {
   const navigate = useNavigate();
   const [currentSymbol, setCurrentSymbol] = useState('');
   const [questionCount, setQuestionCount] = useState(0);
   const [correctCount, setCorrectCount] = useState(0);
+  const [startTime, setStartTime] = useState(null);
+  const [elapsedTime, setElapsedTime] = useState(0);
+  const [mistypeCount, setMistypeCount] = useState(0);
+  const [timer, setTimer] = useState(null);
 
+  useEffect(() => {
+    const start = new Date();
+
+    // タイマーをセットして経過時間を更新
+    const newTimer = setInterval(() => {
+      const now = new Date();
+      setElapsedTime(Math.floor((now - start) / 1000));
+    }, 1000); // 1秒ごとに更新
+
+    setTimer(newTimer);
+
+    return () => {
+      clearInterval(newTimer); // コンポーネントがアンマウントされたときにタイマーをクリア
+    };
+  }, []);
+
+
+  // ゲーム開始時の処理
+  useEffect(() => {
+    const start = new Date();
+    setStartTime(start);
+
+    return () => {
+      if (startTime) {
+        const end = new Date();
+        setElapsedTime((end - startTime) / 1000); // 秒単位で計算
+      }
+    };
+  }, []);
+  
   // ランダムな記号を選択
   useEffect(() => {
     setCurrentSymbol(symbols[Math.floor(Math.random() * symbols.length)]);
@@ -19,16 +57,23 @@ function Game() {
   const handleKeyPress = useCallback((event) => {
     if (event.key === currentSymbol) {
       setCorrectCount(correctCount + 1);
+  
+      // 正解の場合のみ問題数をカウントアップ
+      if (questionCount < 9) { // 10問目に達する前にカウントアップ
+        setQuestionCount(questionCount + 1);
+      } else if (questionCount === 9) { // 10問目の正解でリザルト画面へ
+        navigate('/result');
+      }
+    } else {
+      setMistypeCount(mistypeCount + 1);
     }
-    
-    if (questionCount < 10) {
-      setQuestionCount(questionCount + 1);
-    }
+  }, [currentSymbol, correctCount, mistypeCount, questionCount, navigate]);
 
-    if (questionCount >= 9) { // 10問目の問題が終わったらリザルト画面へ
-      navigate('/result');
+  useEffect(() => {
+    if (questionCount < 10) {
+      setCurrentSymbol(symbols[Math.floor(Math.random() * symbols.length)]);
     }
-  }, [currentSymbol, correctCount, questionCount, navigate]);
+  }, [questionCount]);
 
   // キーイベントのリスナーを追加するためのuseEffect
   useEffect(() => {
@@ -38,6 +83,9 @@ function Game() {
       window.removeEventListener('keypress', handleKeyPress);
     };
   }, [handleKeyPress]);
+
+   // 正確率の計算
+   const accuracy = ((correctCount / (correctCount + mistypeCount)) * 100).toFixed(2);
 
   // タイトルに戻るボタンのハンドラー
   const handlePlayButtonClick = () => {
@@ -55,7 +103,14 @@ function Game() {
           <BlackBox>
             <InstructionText>表示された数字または記号のキーを押してください</InstructionText>
             <SymbolDisplay>{currentSymbol}</SymbolDisplay>
-            <StatsDisplay>問題数: {questionCount}<br/><br/><br/>正解数: {correctCount}</StatsDisplay>
+            {/*<StatsDisplay>問題数: {questionCount}<br/><br/><br/>正解数: {correctCount}</StatsDisplay>*/}
+            <StatsDisplay>
+              経過時間: {elapsedTime}秒<br/>
+              問題数: {questionCount}<br/>
+              正解数: {correctCount}<br/>
+              ミスタイプ数: {mistypeCount}<br/>
+              正確率: {accuracy}%
+            </StatsDisplay>
           </BlackBox>
           <PlayButtonContainer>
             <PlayButton onClick={handlePlayButtonClick}>
