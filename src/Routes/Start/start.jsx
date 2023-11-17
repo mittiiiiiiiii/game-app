@@ -1,6 +1,26 @@
 import React from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
 
+// コンポーネント定義
+const Start = () => {
+  return (
+    <>
+      <GlobalStyle />
+        <Container>
+          <Background/>
+            <Header data-testid="header-label">NS-TYPING</Header>
+            <BlackBoxContainer>
+              <Title data-testid="title-label">NS-TYPING</Title>
+              <Description>数字・記号専用のタイピング練習ゲーム</Description>
+              <PlayButton>プレイする</PlayButton>
+            </BlackBoxContainer>
+        </Container>
+    </>
+  );
+};
+
+export default Start;
+
 // グローバルスタイルを追加
 const GlobalStyle = createGlobalStyle`
   body {
@@ -16,23 +36,21 @@ const Container = styled.div`
   position: relative;
 `;
 
-const BackgroundImage = styled.div`
-  width: 100vw;
-  height: 100vh;
-  position: absolute;
-  top: 0;
-  left: 0;
-  background: repeating-linear-gradient(
-    90deg,  // 縦方向のグラデーション
-    white,  // 白色
-    white 10px,  // 白色 10px まで
-    grey 10px,  // グレー色 10px から
-    grey 20px  // グレー色 20px まで
-  );
+const Background = styled.div`
+  box-sizing: border-box;
+  width: 100vw; 
+  min-height: 100vh; 
+  padding: 150px 200px 0px;
+  background-color: rgb(222, 222, 222);
+  background-image: linear-gradient(rgb(236, 235, 235) 50%, transparent 50%, transparent);
+  background-size: 5px 5px;
+  position: relative;
+  display: flex;
+  justify-content: center;
 `;
 
 
-const InnerContainer = styled.div`
+const BlackBoxContainer = styled.div`
   width: 700px;
   height: 500px;
   position: absolute;
@@ -100,24 +118,3 @@ const Header = styled.div`
   letter-spacing: 3.5px;
   text-shadow: 2px 2px 1px rgba(0, 0, 0, 1); // 完全に不透明な黒の影
 `;
-
-
-// コンポーネント定義
-const Start = () => {
-  return (
-    <>
-      <GlobalStyle />
-      <Container>
-        <BackgroundImage/>
-        <InnerContainer>
-          <Title>NS-TYPING</Title>
-          <Description>数字・記号専用のタイピング練習ゲーム</Description>
-          <PlayButton>プレイする</PlayButton>
-        </InnerContainer>
-        <Header>NS-TYPING</Header>
-      </Container>
-    </>
-  );
-};
-
-export default Start;
