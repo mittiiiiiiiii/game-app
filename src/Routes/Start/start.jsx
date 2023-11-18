@@ -3,12 +3,13 @@ import styled, { createGlobalStyle } from 'styled-components';
 import { useNavigate } from 'react-router-dom'; 
 
 // コンポーネント定義
-const Start = () => {
+const Start = ({ setGameStarted }) => {
   const navigate = useNavigate();
 
   //Gameコンポーネントに遷移
   const handlePlayButtonClick = () => {
-    navigate('/game'); 
+    setGameStarted(true);
+    navigate('/game');
   };
 
   return (

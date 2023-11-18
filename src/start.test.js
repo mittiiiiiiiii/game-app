@@ -84,8 +84,8 @@ describe('Result コンポーネント', () => {
   // 期待されたテキストで正しくレンダリングされるかのテスト
   test('期待されたテキストで正しくレンダリングされる', () => {
     render(
-      <MemoryRouter initialEntries={[{ pathname: '/', state: initialState }]}>
-        <Result />
+      <MemoryRouter initialEntries={[{ pathname: '/result', state: initialState }]}>
+        <Result gameStarted={true} />
       </MemoryRouter>
     );
 
@@ -106,14 +106,14 @@ describe('Result コンポーネント', () => {
   });
   test('リターンボタンが存在するか', () => {
     render(
-      <MemoryRouter initialEntries={[{ pathname: '/', state: initialState }]}>
-        <Result />
+      <MemoryRouter initialEntries={[{ pathname: '/result', state: initialState }]}>
+        <Result gameStarted={true} />
       </MemoryRouter>
     );
 
     // プレイボタンのテキストをテスト
-    const playButton = screen.getByText('タイトルに戻る');
-    expect(playButton).toBeInTheDocument();
-    expect(playButton).toBeVisible();
+    const returnButton = screen.getByText('タイトルに戻る');
+    expect(returnButton).toBeInTheDocument();
+    expect(returnButton).toBeVisible();
   });
 });

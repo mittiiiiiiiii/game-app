@@ -1,16 +1,23 @@
-import React from 'react';
+import React ,{useEffect,} from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
 import { useNavigate, useLocation } from 'react-router-dom'; 
 
 // コンポーネント定義
-const Result = () => {
+const Result = ({ gameStarted }) => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { elapsedTime, correctCount, mistypeCount, accuracy, averageKeystrokes } = location.state;
+  const { elapsedTime = 0, correctCount = 0, mistypeCount = 0, accuracy = 0, averageKeystrokes = 0 } = location.state;
   
+  //不正なアクセスを禁止する
+  useEffect(() => {
+    if (!gameStarted || !location.state) {
+      navigate('/');
+    }
+  }, [gameStarted, location.state, navigate]);
+
   // 数値を小数点第一位までに丸める
-  const formattedAverageKeystrokes = averageKeystrokes.toFixed(1);
-  const formattedAccuracy = accuracy.toFixed(1);
+  const formattedAverageKeystrokes = Number(averageKeystrokes).toFixed(1);
+  const formattedAccuracy = Number(accuracy).toFixed(1);
 
   //Startコンポーネントに遷移
   const handlePlayButtonClick = () => {

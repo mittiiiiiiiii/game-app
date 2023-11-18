@@ -1,24 +1,19 @@
-import React from 'react';
+import React, { useState }  from 'react';
 import { BrowserRouter, Routes, Route , Navigate } from 'react-router-dom';
 import Start from '../Routes/Start/index';
 import Game from '../Routes/Game/index';
 import Result from '../Routes/Result/index';
 
 function App() {
+  const [gameStarted, setGameStarted] = useState(false);
+
   return (
     <BrowserRouter>
       <Routes>
-        {/* スタートページ */}
-        <Route path="/" element={<Start />} />
-
-        {/* ゲームページ */}
-        <Route path="/game" element={<Game />} />
-
-        {/* 結果ページ */}
-        <Route path="/result" element={<Result />} />
-
-        {/* 未定義のパスにアクセスした場合、スタートページへリダイレクト */}
-        {<Route path="*" element={<Navigate to="/" replace />} />}
+        <Route path="/" element={<Start setGameStarted={setGameStarted} />} />
+        <Route path="/game" element={<Game gameStarted={gameStarted} />} />
+        <Route path="/result" element={<Result gameStarted={gameStarted} />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>
   );

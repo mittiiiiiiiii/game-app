@@ -8,13 +8,20 @@ const symbols = ['@', '#', '$', '%', '&', '*', '!', '?', '+', '=',
                  '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 
 // コンポーネント定義
-const Game = () => {
+const Game = ({ gameStarted }) => {
   const navigate = useNavigate();
   const [currentSymbol, setCurrentSymbol] = useState('');
   const [questionCount, setQuestionCount] = useState(0);
   const [correctCount, setCorrectCount] = useState(0);
   const [mistypeCount, setMistypeCount] = useState(0);
   const [elapsedTime, setElapsedTime] = useState(0);
+
+  // 不正なアクセスをブロック
+  useEffect(() => {
+    if (!gameStarted) {
+      navigate('/');
+    }
+  }, [gameStarted, navigate]);
 
   // ゲーム開始時の処理
   useEffect(() => {
@@ -39,7 +46,6 @@ const Game = () => {
         setQuestionCount(questionCount + 1);
       } else if (questionCount === 9) {
         const totalTime = elapsedTime;
-        // 平均キータイプ数の計算：タイプした合計数（正解数＋ミスタイプ数）を経過時間で割る
         const averageKeystrokes = (correctCount + mistypeCount) / totalTime;
         navigate('/result', {
           state: {
