@@ -12,7 +12,6 @@ const Result = () => {
   const formattedAverageKeystrokes = averageKeystrokes.toFixed(1);
   const formattedAccuracy = accuracy.toFixed(1);
 
-
   //Startコンポーネントに遷移
   const handlePlayButtonClick = () => {
     navigate('/');
@@ -38,7 +37,7 @@ const Result = () => {
         </Container>
     </>
   );
-};
+}
 
 export default Result;
 

@@ -1,10 +1,19 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter as Router , MemoryRouter } from 'react-router-dom';
 import '@testing-library/jest-dom';
 import Start from './Routes/Start/start';
 import Game from './Routes/Game/game';
 import Result from './Routes/Result/result';
+
+// テスト用の初期データ
+const initialState = {
+  elapsedTime: "00:14:26",
+  correctCount: 10,
+  averageKeystrokes: 0.7,
+  mistypeCount: 4,
+  accuracy: 71.43,
+};
 
 describe('Start コンポーネント', () => {
   // 期待されたテキストで正しくレンダリングされるかのテスト
@@ -29,7 +38,6 @@ describe('Start コンポーネント', () => {
     expect(descriptionText).toBeVisible();
 
   });
-
   // プレイボタンが存在するかのテスト
   test('プレイボタンが存在するか', () => {
     render(<Router><Start /></Router>);
@@ -75,9 +83,13 @@ describe('Game コンポーネント', () => {
 describe('Result コンポーネント', () => {
   // 期待されたテキストで正しくレンダリングされるかのテスト
   test('期待されたテキストで正しくレンダリングされる', () => {
-    render(<Router><Result /></Router>);
+    render(
+      <MemoryRouter initialEntries={[{ pathname: '/', state: initialState }]}>
+        <Result />
+      </MemoryRouter>
+    );
 
-     // Header のテキストをテスト
+    // Header のテキストをテスト
     const headerLabel = screen.getByTestId('header-label');
     expect(headerLabel).toBeInTheDocument();
     expect(headerLabel).toBeVisible();
@@ -90,10 +102,14 @@ describe('Result コンポーネント', () => {
     expect(screen.getByText(/回\/秒/)).toBeInTheDocument();
     expect(screen.getByText(/ミスタイプ数:/)).toBeInTheDocument();
     expect(screen.getByText(/正確率:/)).toBeInTheDocument();
-    expect(screen.getByText('%')).toBeInTheDocument();
+    expect(screen.getByText(/%$/)).toBeInTheDocument();
   });
   test('リターンボタンが存在するか', () => {
-    render(<Router><Result /></Router>);
+    render(
+      <MemoryRouter initialEntries={[{ pathname: '/', state: initialState }]}>
+        <Result />
+      </MemoryRouter>
+    );
 
     // プレイボタンのテキストをテスト
     const playButton = screen.getByText('タイトルに戻る');
