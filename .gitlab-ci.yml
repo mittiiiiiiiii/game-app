@@ -1,0 +1,32 @@
+image: node
+
+stages:
+  - test
+  - build
+  - deploy
+
+cache:
+  paths:
+    - node_modules/
+    - .yarn/cache
+
+test:
+  stage: test
+  script:
+    - yarn install --cache-folder .yarn/cache
+    - yarn test
+
+build:
+  stage: build
+  script:
+    - yarn run build
+  artifacts:
+    paths:
+      - build/
+    expire_in: 1 hour
+
+deploy:
+  stage: deploy
+  script:
+    - yarn global add firebase-tools
+    - firebase deploy --token $FIREBASE_TOKEN
