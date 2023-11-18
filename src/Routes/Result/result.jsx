@@ -1,10 +1,17 @@
 import React from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
-import { useNavigate } from 'react-router-dom'; 
+import { useNavigate, useLocation } from 'react-router-dom'; 
 
 // コンポーネント定義
 const Result = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const { elapsedTime, correctCount, mistypeCount, accuracy, averageKeystrokes } = location.state;
+  
+  // 数値を小数点第一位までに丸める
+  const formattedAverageKeystrokes = averageKeystrokes.toFixed(1);
+  const formattedAccuracy = accuracy.toFixed(1);
+
 
   //Startコンポーネントに遷移
   const handlePlayButtonClick = () => {
@@ -19,28 +26,13 @@ const Result = () => {
             <Header data-testid="header-label">NS-TYPING</Header>
             <BlackBoxContainer>
               <ResultTitle>結果</ResultTitle>
-              <ElapsedTime>
-                <StyledSpan color="white">経過時間: </StyledSpan>
-                <StyledSpan color="#008000">00:14:26</StyledSpan>
-              </ElapsedTime>
-              <CorrectKeyCount>
-                <StyledSpan color="white">正しく打ったキーの数: </StyledSpan>
-                <StyledSpan color="#008000">10</StyledSpan>
-              </CorrectKeyCount>
-              <AverageKeyType>
-                <StyledSpan color="white">平均キータイプ数: </StyledSpan>
-                <StyledSpan color="#008000">0.7</StyledSpan>
-                <StyledSpan color="white">回/秒</StyledSpan>
-              </AverageKeyType>
-              <MistypeCount>
-                <StyledSpan color="white">ミスタイプ数: </StyledSpan>
-                <StyledSpan color="#008000">4</StyledSpan>
-              </MistypeCount>
-              <Accuracy>
-                <StyledSpan color="white">正確率: </StyledSpan>
-                <StyledSpan color="#008000">71.43</StyledSpan>
-                <StyledSpan color="white">%</StyledSpan>
-              </Accuracy>
+                <TextInfo>
+                  ・経過時間: <GreenText>{elapsedTime}秒<br/></GreenText>
+                  ・正しく打ったキーの数: <GreenText>{correctCount}<br/></GreenText>
+                  ・平均キータイプ数: <GreenText>{formattedAverageKeystrokes}</GreenText>回/秒<br/>
+                  ・ミスタイプ数: <GreenText>{mistypeCount}<br/></GreenText>
+                  ・正確率: <GreenText>{formattedAccuracy}</GreenText>%
+                </TextInfo>
               <ReturnButton onClick={handlePlayButtonClick}>タイトルに戻る</ReturnButton>
             </BlackBoxContainer>
         </Container>
@@ -107,7 +99,6 @@ const BlackBoxContainer = styled.div`
   border: 10px solid yellow;
 `;
 
-// 結果タイトルのスタイル
 const ResultTitle = styled.div`
   width: 173px;
   height: 64px;
@@ -138,58 +129,17 @@ const ReturnButton = styled.div`
   cursor: pointer;
 `;
 
-const StyledSpan = styled.span`
-  color: ${(props) => props.color};
+const GreenText = styled.span`
+  color: #008000;
+`;
+
+const TextInfo = styled.div`
+  position: absolute;
+  left: 91px;
+  top: 205px;
+  color: white;
   font-size: 20px;
   font-family: Arial;
   font-weight: 400;
   word-wrap: break-word;
-`;
-
-const ElapsedTime = styled.div`
-  width: 304px;
-  height: 122px;
-  position: absolute;
-  left: 91px;
-  top: 205px;
-`;
-
-const CorrectKeyCount = styled.div`
-  position: absolute;
-  left: 91px;
-  top: 235px; // 経過時間の下に配置
-  color: white;
-  font-size: 20px;
-  font-family: Arial;
-  font-weight: 400;
-`;
-
-const AverageKeyType = styled.div`
-  position: absolute;
-  left: 91px;
-  top: 265px; // 正しく打ったキーの数の下に配置
-  color: white;
-  font-size: 20px;
-  font-family: Arial;
-  font-weight: 400;
-`;
-
-const MistypeCount = styled.div`
-  position: absolute;
-  left: 91px;
-  top: 295px; // 平均キータイプ数の下に配置
-  color: white;
-  font-size: 20px;
-  font-family: Arial;
-  font-weight: 400;
-`;
-
-const Accuracy = styled.div`
-  position: absolute;
-  left: 91px;
-  top: 325px; // ミスタイプ数の下に配置
-  color: white;
-  font-size: 20px;
-  font-family: Arial;
-  font-weight: 400;
 `;

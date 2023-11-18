@@ -57,13 +57,8 @@ describe('Game コンポーネント', () => {
     expect(instructionText).toBeInTheDocument();
     expect(instructionText).toBeVisible();
 
-    // SymbolDisplay の存在と内容を確認
-    const symbolDisplay = screen.getByText('@');
-    expect(symbolDisplay).toBeInTheDocument();
-    expect(symbolDisplay).toBeVisible();
-
     // QuestionStats の存在と内容を確認
-    const questionStats = screen.getByText(/問題数: 10/);
+    const questionStats = screen.getByText(/問題数:/);
     expect(questionStats).toBeInTheDocument();
     expect(questionStats).toBeVisible();
   });

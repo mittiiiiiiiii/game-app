@@ -1,10 +1,68 @@
-import React from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
 import { useNavigate } from 'react-router-dom'; 
+
+const symbols = ['@', '#', '$', '%', '&', '*', '!', '?', '+', '=', 
+                 '<', '>', '/', '\\', '|', '^', '~', '`', '_', '-', 
+                 '(', ')', '{', '}', '[', ']', '.', ',', ';', ':', '"', "'",
+                 '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 
 // コンポーネント定義
 const Game = () => {
   const navigate = useNavigate();
+  const [currentSymbol, setCurrentSymbol] = useState('');
+  const [questionCount, setQuestionCount] = useState(0);
+  const [correctCount, setCorrectCount] = useState(0);
+  const [mistypeCount, setMistypeCount] = useState(0);
+  const [elapsedTime, setElapsedTime] = useState(0);
+
+  // ゲーム開始時の処理
+  useEffect(() => {
+    const start = new Date();
+    const newTimer = setInterval(() => {
+      const now = new Date();
+      setElapsedTime(Math.floor((now - start) / 1000));
+    }, 1000);
+    return () => clearInterval(newTimer);
+  }, []);
+  
+  // ランダムな記号を選択
+  useEffect(() => {
+    setCurrentSymbol(symbols[Math.floor(Math.random() * symbols.length)]);
+  }, [questionCount]);
+
+  // キーイベントのハンドラー
+  const handleKeyPress = useCallback((event) => {
+    if (event.key === currentSymbol) {
+      setCorrectCount(correctCount + 1); 
+      if (questionCount < 9) {
+        setQuestionCount(questionCount + 1);
+      } else if (questionCount === 9) {
+        const totalTime = elapsedTime;
+        // 平均キータイプ数の計算：タイプした合計数（正解数＋ミスタイプ数）を経過時間で割る
+        const averageKeystrokes = (correctCount + mistypeCount) / totalTime;
+        navigate('/result', {
+          state: {
+            elapsedTime: totalTime,
+            correctCount: correctCount + 1,
+            mistypeCount: mistypeCount,
+            accuracy: (((correctCount + 1) / (correctCount + mistypeCount + 1)) * 100).toFixed(2),
+            averageKeystrokes: averageKeystrokes.toFixed(2)
+          }
+        });
+      }
+    } else {
+      setMistypeCount(mistypeCount + 1);
+    }
+  }, [currentSymbol, correctCount, mistypeCount, questionCount, navigate, elapsedTime]);
+  
+  // キーイベントのリスナーを追加するためのuseEffect
+  useEffect(() => {
+    window.addEventListener('keypress', handleKeyPress);
+    return () => {
+      window.removeEventListener('keypress', handleKeyPress);
+    };
+  }, [handleKeyPress]);
 
   //Startコンポーネントに遷移
   const handlePlayButtonClick = () => {
@@ -19,8 +77,8 @@ const Game = () => {
             <Header data-testid="header-label">NS-TYPING</Header>
             <BlackBoxContainer>
           <InstructionText>表示された数字または記号のキーを押してください</InstructionText>
-          <SymbolDisplay>@</SymbolDisplay>
-          <QuestionStats>問題数: 10<br/><br/><br/>正解数: 1</QuestionStats>
+          <SymbolDisplay>{currentSymbol}</SymbolDisplay>
+          <QuestionStats>問題数: {questionCount}<br/><br/><br/>正解数: {correctCount}</QuestionStats>
           <ReturnButton onClick={handlePlayButtonClick}>タイトルに戻る</ReturnButton>
             </BlackBoxContainer>
         </Container>
