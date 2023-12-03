@@ -84,7 +84,7 @@ const Game = ({ gameStarted }) => {
             <Header data-testid="header-label">NS-TYPING</Header>
             <BlackBoxContainer>
           <InstructionText>表示された数字または記号のキーを押してください</InstructionText>
-          <SymbolDisplay>{currentSymbol}</SymbolDisplay>
+          <SymbolDisplay data-testid="current-symbol">{currentSymbol}</SymbolDisplay>
           <QuestionStats>問題数: {questionCount}<br/><br/><br/>正解数: {correctCount}</QuestionStats>
           <ReturnButton onClick={handlePlayButtonClick}>タイトルに戻る</ReturnButton>
             </BlackBoxContainer>
