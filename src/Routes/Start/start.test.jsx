@@ -6,7 +6,6 @@ import Start from './start';
 import Game from '../Game/game';
 
 describe('Start コンポーネント', () => {
-    // 期待されたテキストで正しくレンダリングされるかのテスト
     test('期待されたテキストで正しくレンダリングされる', () => {
         render(<Router><Start /></Router>);
     
@@ -28,11 +27,9 @@ describe('Start コンポーネント', () => {
         expect(descriptionText).toBeVisible();
     
     });
-    // プレイボタンが存在するかのテスト
     test('プレイボタンが存在するか', () => {
         render(<Router><Start /></Router>);
     
-        // プレイボタンのテキストをテスト
         const playButton = screen.getByText('プレイする');
         expect(playButton).toBeInTheDocument();
         expect(playButton).toBeVisible();
@@ -47,8 +44,7 @@ describe('Start コンポーネント', () => {
                 <Game />
             </Router>
         );
-            
-        // プレイボタンをクリック
+
         const playButton = screen.getByText('プレイする');
         fireEvent.click(playButton);
     

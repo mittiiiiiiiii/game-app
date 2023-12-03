@@ -7,7 +7,6 @@ import Start from '../Start/start'
 import Result from '../Result/result';
 
 describe('Game コンポーネント', () => {
-    // 期待されたテキストで正しくレンダリングされるかのテスト
     test('期待されたテキストで正しくレンダリングされる', () => {
         render(<Router><Game /></Router>);
     
@@ -30,10 +29,38 @@ describe('Game コンポーネント', () => {
     test('リターンボタンが存在するか', () => {
         render(<Router><Game /></Router>);
     
-        // プレイボタンのテキストをテスト
         const playButton = screen.getByText('タイトルに戻る');
         expect(playButton).toBeInTheDocument();
         expect(playButton).toBeVisible();
+    });
+    test('正しいキーを押すと正解数が増加する', () => {
+        render(
+            <MemoryRouter>
+                <Game gameStarted={true} />
+            </MemoryRouter>
+        );
+
+        let correctCountElement = screen.getByTestId('correct-count');
+        expect(correctCountElement.textContent).toBe('正解数: 0');
+
+        const currentSymbol = screen.getByTestId('current-symbol').textContent;
+        fireEvent.keyPress(screen.getByTestId('current-symbol'), { key: currentSymbol });
+
+        expect(correctCountElement.textContent).toBe('正解数: 1');
+    });
+    test('間違ったキーを押すと正解数が変わらない', () => {
+        render(
+            <MemoryRouter>
+                <Game gameStarted={true} />
+            </MemoryRouter>
+        );
+
+        let correctCountElement = screen.getByTestId('correct-count');
+        expect(correctCountElement.textContent).toBe('正解数: 0');
+
+        fireEvent.keyPress(screen.getByTestId('current-symbol'), { key: 'wrongKey' });
+
+        expect(correctCountElement.textContent).toBe('正解数: 0');
     });
     test('「タイトルに戻る」ボタンで Start に遷移する', async () => {
         const mockSetGameStarted = jest.fn();
@@ -50,7 +77,6 @@ describe('Game コンポーネント', () => {
         // Game コンポーネントに遷移
         fireEvent.click(screen.getByText('プレイする'));
     
-        // 「タイトルに戻る」ボタンをクリック
         fireEvent.click(screen.getByText('タイトルに戻る'));
     
         await waitFor(() => {
@@ -68,11 +94,9 @@ describe('Game コンポーネント', () => {
             </MemoryRouter>
         );
 
-        // 10回の正解後に Result に遷移
         for (let i = 0; i < 10; i++) {
             const currentSymbol = screen.getByTestId('current-symbol').textContent;
             fireEvent.keyPress(screen.getByTestId('current-symbol'), { key: currentSymbol });
-            //await waitFor(() => {});
         }
 
         // Result コンポーネントに遷移後の表示を確認

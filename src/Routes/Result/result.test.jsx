@@ -16,7 +16,6 @@ const initialState = {
 };
 
 describe('Result コンポーネント', () => {
-    // 期待されたテキストで正しくレンダリングされるかのテスト
     test('期待されたテキストで正しくレンダリングされる', () => {
         render(
             <MemoryRouter initialEntries={[{ pathname: '/result', state: initialState }]}>
@@ -47,7 +46,6 @@ describe('Result コンポーネント', () => {
             </MemoryRouter>
         );
 
-        // プレイボタンのテキストをテスト
         const returnButton = screen.getByText('タイトルに戻る');
         expect(returnButton).toBeInTheDocument();
         expect(returnButton).toBeVisible();
@@ -65,11 +63,9 @@ describe('Result コンポーネント', () => {
             </MemoryRouter>
         );
 
-        // 10回の正解後に Result に遷移
         for (let i = 0; i < 10; i++) {
             const currentSymbol = screen.getByTestId('current-symbol').textContent;
             fireEvent.keyPress(screen.getByTestId('current-symbol'), { key: currentSymbol });
-            //await waitFor(() => {});
         }
 
         // Result コンポーネントに遷移後の表示を確認
@@ -77,7 +73,6 @@ describe('Result コンポーネント', () => {
             expect(screen.getByText('結果')).toBeInTheDocument();
         });
 
-        // 「タイトルに戻る」ボタンをクリック
         fireEvent.click(screen.getByText('タイトルに戻る'));
     
         await waitFor(() => {

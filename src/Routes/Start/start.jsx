@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom'; 
 import { GlobalStyle,Container, Background, Header, BlackBoxContainer } from '../../utils/StyledComponents';
 
-// コンポーネント定義
 const Start = ({ setGameStarted }) => {
   const navigate = useNavigate();
 

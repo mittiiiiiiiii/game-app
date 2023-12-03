@@ -76,7 +76,10 @@ const Game = ({ gameStarted }) => {
         <BlackBoxContainer>
           <InstructionText>表示された数字または記号のキーを押してください</InstructionText>
           <SymbolDisplay data-testid="current-symbol">{currentSymbol}</SymbolDisplay>
-          <QuestionStats>問題数: {questionCount}<br/><br/><br/>正解数: {correctCount}</QuestionStats>
+          <QuestionStats>
+            問題数: {questionCount}<br/><br/><br/>
+            <span data-testid="correct-count">正解数: {correctCount}</span>
+          </QuestionStats>
           <ReturnButton onClick={handlePlayButtonClick}>タイトルに戻る</ReturnButton>
         </BlackBoxContainer>
       </Container>
