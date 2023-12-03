@@ -1,9 +1,8 @@
-import React ,{useEffect,} from 'react';
+import React ,{useEffect} from 'react';
 import styled from 'styled-components';
 import { useNavigate, useLocation } from 'react-router-dom'; 
 import { GlobalStyle,Container, Background, Header, BlackBoxContainer } from '../../utils/StyledComponents';
 
-// 経過時間を mm:ss:mm 形式にフォーマットする関数
 const formatTime = (timeInSeconds) => {
   const minutes = Math.floor(timeInSeconds / 60);
   const seconds = Math.floor(timeInSeconds % 60);
@@ -30,7 +29,7 @@ const Result = ({ gameStarted }) => {
 
   const formattedElapsedTime = formatTime(elapsedTime);
   const formattedAccuracy = Number(accuracy).toFixed(2);
-  const formattedAverageKeystrokes = Number(averageKeystrokes).toFixed(2);
+  const formattedAverageKeystrokes = Number(averageKeystrokes).toFixed(1);
 
   //Startコンポーネントに遷移
   const handlePlayButtonClick = () => {

@@ -1,56 +1,45 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom'; 
-import { GlobalStyle,Container, Background, Header, BlackBoxContainer } from '../../utils/StyledComponents';
+import { GlobalStyle, Container, Background, Header, BlackBoxContainer } from '../../utils/StyledComponents';
 
 const symbols = ['@', '#', '$', '%', '&', '*', '!', '?', '+', '=', 
                  '<', '>', '/', '\\', '|', '^', '~', '`', '_', '-', 
                  '(', ')', '{', '}', '[', ']', '.', ',', ';', ':', '"', "'",
                  '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 
-// コンポーネント定義
 const Game = ({ gameStarted }) => {
   const navigate = useNavigate();
   const [currentSymbol, setCurrentSymbol] = useState('');
   const [questionCount, setQuestionCount] = useState(0);
   const [correctCount, setCorrectCount] = useState(0);
   const [mistypeCount, setMistypeCount] = useState(0);
-  const [elapsedTime, setElapsedTime] = useState(0);
+  const [startTime, setStartTime] = useState(null);
 
-  // 不正なアクセスをブロック
   useEffect(() => {
     if (!gameStarted) {
       navigate('/');
+    } else {
+      setStartTime(new Date());
     }
   }, [gameStarted, navigate]);
 
-  // ゲーム開始時の処理
-  useEffect(() => {
-    const start = new Date();
-    const newTimer = setInterval(() => {
-      const now = new Date();
-      setElapsedTime(((now - start) / 1000).toFixed(2)); // 小数点第二位までの精度で時間を更新
-    }, 100);
-    return () => clearInterval(newTimer);
-  }, []);
-  
-  // ランダムな記号を選択
-  useEffect(() => {
-    setCurrentSymbol(symbols[Math.floor(Math.random() * symbols.length)]);
-  }, [questionCount]);
+  const calculateElapsedTime = useCallback(() => {
+    const now = new Date();
+    return ((now - startTime) / 1000).toFixed(2);
+  }, [startTime]);
 
-  // キーイベントのハンドラー
   const handleKeyPress = useCallback((event) => {
     if (event.key === currentSymbol) {
-      setCorrectCount(correctCount + 1); 
+      setCorrectCount(correctCount + 1);
       if (questionCount < 9) {
         setQuestionCount(questionCount + 1);
       } else if (questionCount === 9) {
-        const totalTime = elapsedTime;
-        const averageKeystrokes = (correctCount + mistypeCount) / totalTime;
+        const elapsedTime = calculateElapsedTime();
+        const averageKeystrokes = (correctCount + mistypeCount) / elapsedTime;
         navigate('/result', {
           state: {
-            elapsedTime: totalTime,
+            elapsedTime: elapsedTime,
             correctCount: correctCount + 1,
             mistypeCount: mistypeCount,
             accuracy: (((correctCount + 1) / (correctCount + mistypeCount + 1)) * 100).toFixed(2),
@@ -61,9 +50,12 @@ const Game = ({ gameStarted }) => {
     } else {
       setMistypeCount(mistypeCount + 1);
     }
-  },[currentSymbol, correctCount, mistypeCount, questionCount, navigate, elapsedTime]);
-  
-  // キーイベントのリスナーを追加するためのuseEffect
+  },[currentSymbol, correctCount, mistypeCount, questionCount, navigate, calculateElapsedTime]);
+
+  useEffect(() => {
+    setCurrentSymbol(symbols[Math.floor(Math.random() * symbols.length)]);
+  }, [questionCount]);
+
   useEffect(() => {
     window.addEventListener('keypress', handleKeyPress);
     return () => {
@@ -71,7 +63,6 @@ const Game = ({ gameStarted }) => {
     };
   }, [handleKeyPress]);
 
-  //Startコンポーネントに遷移
   const handlePlayButtonClick = () => {
     navigate('/');
   };
@@ -79,16 +70,16 @@ const Game = ({ gameStarted }) => {
   return (
     <>
       <GlobalStyle />
-        <Container>
-          <Background/>
-            <Header data-testid="header-label">NS-TYPING</Header>
-            <BlackBoxContainer>
+      <Container>
+        <Background />
+        <Header data-testid="header-label">NS-TYPING</Header>
+        <BlackBoxContainer>
           <InstructionText>表示された数字または記号のキーを押してください</InstructionText>
           <SymbolDisplay data-testid="current-symbol">{currentSymbol}</SymbolDisplay>
           <QuestionStats>問題数: {questionCount}<br/><br/><br/>正解数: {correctCount}</QuestionStats>
           <ReturnButton onClick={handlePlayButtonClick}>タイトルに戻る</ReturnButton>
-            </BlackBoxContainer>
-        </Container>
+        </BlackBoxContainer>
+      </Container>
     </>
   );
 };
