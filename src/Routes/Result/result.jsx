@@ -3,7 +3,19 @@ import styled from 'styled-components';
 import { useNavigate, useLocation } from 'react-router-dom'; 
 import { GlobalStyle,Container, Background, Header, BlackBoxContainer } from '../../utils/StyledComponents';
 
-// コンポーネント定義
+// 経過時間を mm:ss:mm 形式にフォーマットする関数
+const formatTime = (timeInSeconds) => {
+  const minutes = Math.floor(timeInSeconds / 60);
+  const seconds = Math.floor(timeInSeconds % 60);
+  const milliseconds = Math.floor((timeInSeconds % 1) * 100);
+
+  const formattedMinutes = minutes.toString().padStart(2, '0');
+  const formattedSeconds = seconds.toString().padStart(2, '0');
+  const formattedMilliseconds = milliseconds.toString().padStart(2, '0');
+
+  return `${formattedMinutes}:${formattedSeconds}:${formattedMilliseconds}`;
+};
+
 const Result = ({ gameStarted }) => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -16,9 +28,9 @@ const Result = ({ gameStarted }) => {
     }
   }, [gameStarted, location.state, navigate]);
 
-  // 数値を小数点第一位までに丸める
-  const formattedAverageKeystrokes = Number(averageKeystrokes).toFixed(1);
-  const formattedAccuracy = Number(accuracy).toFixed(1);
+  const formattedElapsedTime = formatTime(elapsedTime);
+  const formattedAccuracy = Number(accuracy).toFixed(2);
+  const formattedAverageKeystrokes = Number(averageKeystrokes).toFixed(2);
 
   //Startコンポーネントに遷移
   const handlePlayButtonClick = () => {
@@ -34,7 +46,7 @@ const Result = ({ gameStarted }) => {
             <BlackBoxContainer>
               <ResultTitle>結果</ResultTitle>
                 <TextInfo>
-                  ・経過時間: <GreenText>{elapsedTime}秒<br/></GreenText>
+                  ・経過時間: <GreenText>{formattedElapsedTime}<br/></GreenText>
                   ・正しく打ったキーの数: <GreenText>{correctCount}<br/></GreenText>
                   ・平均キータイプ数: <GreenText>{formattedAverageKeystrokes}</GreenText>回/秒<br/>
                   ・ミスタイプ数: <GreenText>{mistypeCount}<br/></GreenText>

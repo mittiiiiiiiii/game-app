@@ -29,8 +29,8 @@ const Game = ({ gameStarted }) => {
     const start = new Date();
     const newTimer = setInterval(() => {
       const now = new Date();
-      setElapsedTime(Math.floor((now - start) / 1000));
-    }, 1000);
+      setElapsedTime(((now - start) / 1000).toFixed(2)); // 小数点第二位までの精度で時間を更新
+    }, 100);
     return () => clearInterval(newTimer);
   }, []);
   
@@ -61,7 +61,7 @@ const Game = ({ gameStarted }) => {
     } else {
       setMistypeCount(mistypeCount + 1);
     }
-  }, [currentSymbol, correctCount, mistypeCount, questionCount, navigate, elapsedTime]);
+  },[currentSymbol, correctCount, mistypeCount, questionCount, navigate, elapsedTime]);
   
   // キーイベントのリスナーを追加するためのuseEffect
   useEffect(() => {
