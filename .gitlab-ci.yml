@@ -1,14 +1,17 @@
-image: node
+image: node:latest
+image: cypress/browsers:node12.18.3-chrome87-ff82
 
 stages:
   - test
   - build
   - deploy
+  - e2e_test
 
 cache:
   paths:
     - node_modules/
     - .yarn/cache
+    - ~/.cache/Cypress
 
 test:
   stage: test
@@ -30,3 +33,14 @@ deploy:
   script:
     - yarn global add firebase-tools
     - firebase deploy --token $FIREBASE_TOKEN
+
+e2e_test:
+  stage: e2e_test
+  script:
+    - yarn run cypress:run
+  artifacts:
+    when: always
+    paths:
+      - cypress/screenshots
+      - cypress/videos
+    expire_in: 1 day

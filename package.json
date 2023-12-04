@@ -18,7 +18,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run"
   },
   "eslintConfig": {
     "extends": [
@@ -46,7 +48,7 @@
     "@testing-library/react": "^14.1.0",
     "axios-mock-adapter": "^1.22.0",
     "babel-jest": "^29.7.0",
-    "cypress": "^13.5.1",
+    "cypress": "^13.6.0",
     "eslint-plugin-cypress": "^2.15.1",
     "react-test-renderer": "^18.2.0"
   }

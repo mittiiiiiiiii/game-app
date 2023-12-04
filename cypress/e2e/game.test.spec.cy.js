@@ -16,6 +16,7 @@ describe('Game コンポーネントのテスト', () => {
     it('「タイトルに戻る」ボタンをクリックすると Start コンポーネントに遷移する', () => {
         cy.contains('タイトルに戻る').should('exist').click();
         cy.url().should('include', '/');
+        cy.get('[data-testid="title-label"]').should('exist');
     });
 
     it('もう一度 Game コンポーネントへ遷移', () => {

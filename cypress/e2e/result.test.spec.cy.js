@@ -2,7 +2,6 @@ describe('Result コンポーネントのテスト', () => {
     beforeEach(() => {
       cy.visit('/');
       cy.contains('プレイする').click();
-      //cy.url().should('include', '/game');
       for (let i = 0; i < 10; i++) {
         cy.get('[data-testid="current-symbol"]').invoke('text').then((currentSymbol) => {
           cy.get('body').type(currentSymbol);
@@ -24,9 +23,6 @@ describe('Result コンポーネントのテスト', () => {
     it('Result から「タイトルに戻る」ボタンで Start コンポーネントに遷移する', () => {
       cy.contains('タイトルに戻る').click();
       cy.url().should('include', '/');
-    });
-    it('「タイトルに戻る」ボタンをクリックすると Start コンポーネントに遷移する', () => {
-      cy.contains('タイトルに戻る').should('exist').click();
-      cy.url().should('include', '/');
+      cy.get('[data-testid="title-label"]').should('exist');
     });
   });
