@@ -51,4 +51,5 @@
         - コンポーネント遷移するかのテストを実装
 - cypress
     - .gitlab-ci.ymlにcypressを追加
+    - 一連の流れをテストするように変更
 - .gitlab-ci.ymlを作成
