@@ -35,8 +35,11 @@ deploy:
     - firebase deploy --token $FIREBASE_TOKEN
 
 e2e_test:
+  image: cypress/browsers:latest
   stage: e2e_test
   script:
+    - yarn install --cache-folder .yarn/cache
+    - npx cypress install
     - yarn run cypress:run
   artifacts:
     when: always
