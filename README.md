@@ -53,3 +53,4 @@
     - .gitlab-ci.ymlにcypressを追加
     - 一連の流れをテストするように変更
 - .gitlab-ci.ymlを作成
+- dockerファイルを作成
