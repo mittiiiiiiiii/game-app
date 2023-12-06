@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: koske-game-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: koske-game-app
+  template:
+    metadata:
+      labels:
+        app: koske-game-app
+    spec:
+      containers:
+      - name: koske-game-app
+        image: game-app
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 3000
+        command: ["yarn", "start"]

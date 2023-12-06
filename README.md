@@ -10,8 +10,27 @@
 ## 画面遷移図
 ![画面遷移図](/uploads/7b7652542e42be8a4ea5202cfc330c95/画面遷移図.png)
 
-##　コンポーネント設計をする
+## コンポーネント設計をする
 ![コンポーネント](/uploads/f94bdf9189241b5628163719674e9451/コンポーネント.png)
+
+## 環境構築手順
+- リポジトリのクローン
+    ```bash
+    git clone https://gitlab.com/dev-krc/training/koske-game.git
+- Docker イメージのビルド
+    ```bash
+    eval $(minikube docker-env)
+    docker build -t game-app .
+- Kubernetes マニフェストの適用
+    ```bash
+    kubectl apply -f k8s/deployment.yml 
+    kubectl apply -f k8s/service.yml
+- サービスの確認
+    ```bash
+    kubectl get services
+- アプリケーションへのアクセス
+    ```bash
+    minikube service koske-game-app --url
 
 ##　アプリを作成
 - フォルダ構造を整理
@@ -54,3 +73,7 @@
     - 一連の流れをテストするように変更
 - .gitlab-ci.ymlを作成
 - dockerファイルを作成
+- kube
+    - deploymentやserviceの作成に使用するマニフェストファイル(yaml)を作成する。
+    - minikube serviceコマンドを使って、serviceを通してアプリにアクセスできることを確認
+    - 環境構築手順をREADMEにまとめる
