@@ -27,12 +27,16 @@ build:
     paths:
       - build/
     expire_in: 1 hour
+  only:
+    - merge_requests
 
 deploy:
   stage: deploy
   script:
     - yarn global add firebase-tools
     - firebase deploy --token $FIREBASE_TOKEN
+  only:
+    - merge_requests
 
 e2e_test:
   image: cypress/browsers:latest
@@ -41,6 +45,8 @@ e2e_test:
     - yarn install --cache-folder .yarn/cache
     - npx cypress install
     - yarn run cypress:run
+  only:
+    - merge_requests
   artifacts:
     when: always
     paths:
