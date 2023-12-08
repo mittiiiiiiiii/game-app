@@ -13,6 +13,31 @@
 ## コンポーネント設計をする
 ![コンポーネント](/uploads/f94bdf9189241b5628163719674e9451/コンポーネント.png)
 
+## Skaffoldでの環境構築手順
+- リポジトリのクローン
+    ```bash
+    git clone https://gitlab.com/dev-krc/training/koske-game.git
+- minikubeをスタート
+    ```bash
+    minikube start --driver=qemu2
+- minikube VM内のdockerに接続
+    ```bash
+    eval $(minikube docker-env)
+- skaffold.yamlを作成
+    ```bash
+    skaffold init
+    Dockerイメージの作成に使用するファイルを尋ねられるのでDockerfileを選択
+- pod、replicaset、deployment、service、ingressをminikube上に作成
+    ```bash
+    skaffold dev
+- host名で名前解決できるようにする
+    ```bash
+    echo "$(minikube ip) koske-game.nip.io" | sudo tee -a /etc/hosts
+- host名でアプリにアクセスできることを確認
+    ```bash
+    curl -I http://koske-game.nip.io
+
+
 ## Ingress環境構築手順
 - リポジトリのクローン
     ```bash
@@ -42,6 +67,7 @@
 - host名でアプリにアクセスできることを確認
     ```bash
     curl -I http://koske-game.nip.io
+※ 一度名前解決をしたあとにもう一度環境を構築すると、http://koske-game.nip.io に２つのipが与えられるため、アクセスできなくなる。そのため、/etc/hostsで過去のipを削除してからもう一度名前解決を行う。
 
 ##　アプリを作成
 - フォルダ構造を整理
