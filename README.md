@@ -13,10 +13,14 @@
 ## コンポーネント設計をする
 ![コンポーネント](/uploads/f94bdf9189241b5628163719674e9451/コンポーネント.png)
 
-## 環境構築手順
+## Ingress環境構築手順
 - リポジトリのクローン
     ```bash
     git clone https://gitlab.com/dev-krc/training/koske-game.git
+- minikubeをスタート
+    ```bash
+    minikube start --driver=qemu2
+    minikube addons enable ingress
 - Docker イメージのビルド
     ```bash
     eval $(minikube docker-env)
@@ -25,12 +29,19 @@
     ```bash
     kubectl apply -f k8s/deployment.yml 
     kubectl apply -f k8s/service.yml
+    kubectl apply -f ingress.yaml
 - サービスの確認
     ```bash
     kubectl get services
 - アプリケーションへのアクセス
     ```bash
     minikube service koske-game-app --url
+- host名で名前解決できるようにする
+    ```bash
+    echo "$(minikube ip) koske-game.nip.io" | sudo tee -a /etc/hosts
+- host名でアプリにアクセスできることを確認
+    ```bash
+    curl -I http://koske-game.nip.io
 
 ##　アプリを作成
 - フォルダ構造を整理
