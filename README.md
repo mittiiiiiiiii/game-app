@@ -19,7 +19,7 @@
     git clone https://gitlab.com/dev-krc/training/koske-game.git
 - minikubeをスタート
     ```bash
-    minikube start --driver=qemu2
+    minikube start
 - minikube VM内のdockerに接続
     ```bash
     eval $(minikube docker-env)
@@ -54,7 +54,7 @@
     ```bash
     kubectl apply -f k8s/deployment.yml 
     kubectl apply -f k8s/service.yml
-    kubectl apply -f ingress.yaml
+    kubectl apply -f k8s/ingress.yml
 - サービスの確認
     ```bash
     kubectl get services
@@ -68,6 +68,8 @@
     ```bash
     curl -I http://koske-game.nip.io
 ※ 一度名前解決をしたあとにもう一度環境を構築すると、http://koske-game.nip.io に２つのipが与えられるため、アクセスできなくなる。そのため、/etc/hostsで過去のipを削除してからもう一度名前解決を行う。
+- 追記
+    Macの開発環境にRosetta2をインストールしたためdriverにdockerを使用しても環境を構築できるようになった
 
 ##　アプリを作成
 - フォルダ構造を整理
