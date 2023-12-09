@@ -20,6 +20,7 @@
 - minikubeをスタート
     ```bash
     minikube start
+    minikube addons enable ingress
 - minikube VM内のdockerに接続
     ```bash
     eval $(minikube docker-env)
