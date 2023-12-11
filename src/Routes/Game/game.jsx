@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import axios from 'axios';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom'; 
 import { GlobalStyle, Container, Background, Header, BlackBoxContainer } from '../../utils/StyledComponents';
@@ -29,28 +30,30 @@ const Game = ({ gameStarted }) => {
     return ((now - startTime) / 1000).toFixed(2);
   }, [startTime]);
 
-  const handleKeyPress = useCallback((event) => {
+  const handleKeyPress = useCallback(async (event) => {
     if (event.key === currentSymbol) {
       setCorrectCount(correctCount + 1);
       if (questionCount < 9) {
         setQuestionCount(questionCount + 1);
       } else if (questionCount === 9) {
         const elapsedTime = calculateElapsedTime();
-        const averageKeystrokes = (correctCount + mistypeCount) / elapsedTime;
-        navigate('/result', {
-          state: {
-            elapsedTime: elapsedTime,
-            correctCount: correctCount + 1,
-            mistypeCount: mistypeCount,
-            accuracy: (((correctCount + 1) / (correctCount + mistypeCount + 1)) * 100).toFixed(2),
-            averageKeystrokes: averageKeystrokes.toFixed(2)
-          }
-        });
+        const gameData = {
+          correctCount: correctCount + 1,
+          mistypeCount: mistypeCount,
+          elapsedTime: elapsedTime
+        };
+
+        try {
+          const response = await axios.post('http://localhost:3001/api/game/results', gameData);
+          navigate('/result', { state: response.data });
+        } catch (error) {
+          console.error('There was a problem with the axios operation:', error);
+        }
       }
     } else {
       setMistypeCount(mistypeCount + 1);
     }
-  },[currentSymbol, correctCount, mistypeCount, questionCount, navigate, calculateElapsedTime]);
+  }, [currentSymbol, correctCount, mistypeCount, questionCount, navigate, calculateElapsedTime]);
 
   useEffect(() => {
     setCurrentSymbol(symbols[Math.floor(Math.random() * symbols.length)]);
