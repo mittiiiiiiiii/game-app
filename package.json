@@ -53,7 +53,12 @@
     "babel-jest": "^29.7.0",
     "cypress": "^13.6.0",
     "eslint-plugin-cypress": "^2.15.1",
-    "msw": "^2.0.10",
+    "msw": "^2.0.11",
     "react-test-renderer": "^18.2.0"
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "axios": "<rootDir>/node_modules/axios/dist/axios.min.js"
+    }
   }
 }
