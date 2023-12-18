@@ -5,6 +5,7 @@ import '@testing-library/jest-dom';
 import Result from './result';
 import Game from '../Game/game';
 import Start from '../Start/start'
+import { server } from "../../mocks/server"; // 追加
 
 // テスト用の初期データ
 const initialState = {
@@ -16,6 +17,9 @@ const initialState = {
 };
 
 describe('Result コンポーネント', () => {
+    beforeAll(() => server.listen());   // この三行を追加
+    afterEach(() => server.resetHandlers());
+    afterAll(() => server.close());
     test('期待されたテキストで正しくレンダリングされる', () => {
         render(
             <MemoryRouter initialEntries={[{ pathname: '/result', state: initialState }]}>
