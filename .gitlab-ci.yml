@@ -44,6 +44,7 @@ e2e_test:
   script:
     - yarn install --cache-folder .yarn/cache
     - npx cypress install
+    - node src/server.js &
     - yarn run cypress:run
   only:
     - merge_requests

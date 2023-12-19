@@ -13,6 +13,26 @@
 ## コンポーネント設計をする
 ![コンポーネント](/uploads/f94bdf9189241b5628163719674e9451/コンポーネント.png)
 
+## APIを使用する環境構築手順
+- リポジトリのクローン
+    ```bash
+    git clone https://gitlab.com/dev-krc/training/koske-game.git
+- localhostでAPIを起動
+    ```bash
+    node src/server.js &
+- jest、React-Testing-Libraryのテスト
+    ```bash
+    yarn test
+- localhostでReactアプリを起動し、問題なく動作することを確認
+    ```bash
+    yarn start
+- cypressのテスト
+    ```bash
+    yarn run cypress open
+    yarn run cypress run
+
+
+
 ## Skaffoldでの環境構築手順
 - リポジトリのクローン
     ```bash
