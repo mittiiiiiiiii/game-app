@@ -19,7 +19,7 @@
     git clone https://gitlab.com/dev-krc/training/koske-game.git
 - localhostでAPIを起動
     ```bash
-    node src/server.js &
+    node api/server.js &
 - jest、React-Testing-Libraryのテスト
     ```bash
     yarn test
@@ -137,3 +137,8 @@
     - deploymentやserviceの作成に使用するマニフェストファイル(yaml)を作成する。
     - minikube serviceコマンドを使って、serviceを通してアプリにアクセスできることを確認
     - 環境構築手順をREADMEにまとめる
+- APIを作成
+    - APIを作成
+    - jestとcypressをそれに合わせて修正
+    - 環境構築手順をREADMEにまとめる
+    - apiを起動するdockerfileを作成
