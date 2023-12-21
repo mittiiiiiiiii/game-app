@@ -6,7 +6,7 @@ WORKDIR /app
 COPY ./package*.json ./
 
 # 依存関係のインストール
-RUN npm install
+RUN yarn install
 
 # apiディレクトリ内のファイルを/app/apiにコピー
 COPY ./api ./api

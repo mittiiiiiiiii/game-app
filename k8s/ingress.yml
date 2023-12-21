@@ -14,3 +14,10 @@ spec:
             name: koske-game-app
             port:
               number: 3000
+      - path: /api
+        pathType: Prefix
+        backend:
+          service:
+            name: koske-game-api
+            port:
+              number: 3001

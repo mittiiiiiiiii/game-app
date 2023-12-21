@@ -19,3 +19,27 @@ spec:
         ports:
         - containerPort: 3000
         command: ["yarn", "start"]
+
+--- 
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: koske-game-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: koske-game-api
+  template:
+    metadata:
+      labels:
+        app: koske-game-api
+    spec:
+      imagePullSecrets:
+      - name: selfreg
+      containers:
+      - name: koske-game-api
+        image: kske345/game-api:game-api
+        ports:
+        - containerPort: 3001
