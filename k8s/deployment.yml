@@ -19,3 +19,25 @@ spec:
         ports:
         - containerPort: 3000
         command: ["yarn", "start"]
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-api-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: my-api
+  template:
+    metadata:
+      labels:
+        app: my-api
+    spec:
+      containers:
+      - name: my-api
+        image: my-api-image  # ローカルでビルドされたイメージ名
+        ports:
+        - containerPort: 3001
