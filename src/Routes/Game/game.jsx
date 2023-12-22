@@ -44,7 +44,7 @@ const Game = ({ gameStarted }) => {
         };
 
         try {
-          const response = await axios.post('http://localhost:3001/api/game/results', gameData);
+          const response = await axios.post('http://koske-game.nip.io/api/game/results', gameData);
           navigate('/result', { state: response.data });
         } catch (error) {
           console.error('There was a problem with the axios operation:', error);

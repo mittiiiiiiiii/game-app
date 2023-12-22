@@ -13,6 +13,28 @@
 ## コンポーネント設計をする
 ![コンポーネント](/uploads/f94bdf9189241b5628163719674e9451/コンポーネント.png)
 
+# minikube上でAPIを動かすための環境構築手順
+- リポジトリのクローン
+    ```bash
+    git clone https://gitlab.com/dev-krc/training/koske-game.git
+- - minikubeをスタート
+    ```bash
+    minikube start
+    minikube addons enable ingress
+- minikube VM内のdockerに接続
+    ```bash
+    eval $(minikube docker-env)
+- skaffold.yamlを作成
+    ```bash
+    skaffold init
+    Dockerイメージの作成に使用するファイルを尋ねられるのでDockerfileを選択
+- host名で名前解決できるようにする
+    ```bash
+    echo "$(minikube ip) koske-game.nip.io" | sudo tee -a /etc/hosts
+- host名でアプリにアクセスできることを確認
+    ```bash
+    curl -I http://koske-game.nip.io
+
 ## APIを使用する環境構築手順
 - リポジトリのクローン
     ```bash
@@ -30,8 +52,6 @@
     ```bash
     yarn run cypress open
     yarn run cypress run
-
-
 
 ## Skaffoldでの環境構築手順
 - リポジトリのクローン
@@ -57,7 +77,6 @@
 - host名でアプリにアクセスできることを確認
     ```bash
     curl -I http://koske-game.nip.io
-
 
 ## Ingress環境構築手順
 - リポジトリのクローン

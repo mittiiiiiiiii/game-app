@@ -39,5 +39,6 @@ spec:
       containers:
       - name: my-api
         image: my-api-image  # ローカルでビルドされたイメージ名
+        imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 3001

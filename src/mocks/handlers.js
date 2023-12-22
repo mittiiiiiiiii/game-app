@@ -1,7 +1,7 @@
 import { rest } from 'msw';
 
 export const handlers = [
-  rest.post('http://localhost:3001/api/game/results', (req, res, ctx) => {
+  rest.post('http://koske-game.nip.io/api/game/results', (req, res, ctx) => {
     const { correctCount, mistypeCount, elapsedTime } = req.body;
 
     const accuracy = ((correctCount / (correctCount + mistypeCount)) * 100).toFixed(2);

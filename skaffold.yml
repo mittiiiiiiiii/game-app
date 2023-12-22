@@ -7,6 +7,9 @@ build:
     - image: game-app
       docker:
         dockerfile: Dockerfile
+    - image: my-api-image
+      docker:
+        dockerfile: api/Dockerfile
 manifests:
   rawYaml:
     - k8s/deployment.yml
