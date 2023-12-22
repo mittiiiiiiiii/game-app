@@ -17,7 +17,7 @@
 - リポジトリのクローン
     ```bash
     git clone https://gitlab.com/dev-krc/training/koske-game.git
-- - minikubeをスタート
+- minikubeをスタート
     ```bash
     minikube start
     minikube addons enable ingress
