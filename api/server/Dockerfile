@@ -6,7 +6,7 @@ COPY ./package*.json ./
 
 RUN yarn install
 
-COPY ./api ./api
+COPY ./api/server ./api
 
 EXPOSE 3001
 
