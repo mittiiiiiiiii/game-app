@@ -7,6 +7,11 @@ app.use(express.json());
 
 const sequelize = new Sequelize('postgres://postgres:postgresSuperUserPsw@mypostgres:5432/dbname');
 
+app.get('/results/last', async (req, res) => {
+    const lastResult = await Result.findOne({ order: [['createdAt', 'DESC']] });
+    res.json(lastResult);
+});
+
 const Result = sequelize.define('result', {
     elapsedTime: Sequelize.FLOAT,
     correctCount: Sequelize.INTEGER,
@@ -19,7 +24,7 @@ sequelize.sync().then(() => {
     console.log('Database & tables created!');
 });
 
-app.post('/results', async (req, res) => {
+app.post('/results/save', async (req, res) => {
     const result = await Result.create(req.body);
     res.json(result);
 });
