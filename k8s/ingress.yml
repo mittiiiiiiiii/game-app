@@ -21,3 +21,10 @@ spec:
             name: my-api-service
             port:
               number: 3001
+      - path: /db
+        pathType: Prefix
+        backend:
+          service:
+            name: db-api-service
+            port:
+              number: 4000

@@ -10,8 +10,12 @@ build:
     - image: my-api-image
       docker:
         dockerfile: api/Dockerfile
+    - image: db-api
+      docker:
+        dockerfile: db/Dockerfile
 manifests:
   rawYaml:
     - k8s/deployment.yml
-    - k8s/ingress.yml
     - k8s/service.yml
+    - db-api.yaml
+    - k8s/ingress.yml
