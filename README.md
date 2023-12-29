@@ -13,6 +13,27 @@
 ## コンポーネント設計をする
 ![コンポーネント](/uploads/f94bdf9189241b5628163719674e9451/コンポーネント.png)
 
+# minikube上でMongoDBを作成する環境構築手順
+- リポジトリのクローン
+    ```bash
+    git clone https://gitlab.com/dev-krc/training/koske-game.git
+- minikubeをスタート
+    ```bash
+    minikube start
+    minikube addons enable ingress
+- minikube VM内のdockerに接続
+    ```bash
+    eval $(minikube docker-env)
+- pod、replicaset、deployment、service、ingress、PostgreSQLのサーバ、テーブルをminikube上に作成
+    ```bash
+    skaffold dev
+- host名で名前解決できるようにする
+    ```bash
+    echo "$(minikube ip) koske-game.nip.io" | sudo tee -a /etc/hosts
+- host名でアプリにアクセスできることを確認
+    ```bash
+    curl -I http://koske-game.nip.io
+
 
 # minikube上でPostgreSQLを作成する環境構築手順
 - リポジトリのクローン

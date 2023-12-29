@@ -15,10 +15,8 @@ build:
         dockerfile: db/Dockerfile
 manifests:
   rawYaml:
-    - k8s/postgreSQL/my-postgres-secret.yaml
-    - k8s/postgreSQL/my-postgres.yaml
-    - k8s/postgreSQL/psql.yaml
-    - k8s/postgreSQL/postgres.yaml
+    - k8s/Mongo/mongodb-deployment.yaml
+    - k8s/Mongo/mongodb-service.yaml
     - k8s/deployment.yml
     - k8s/service.yml
     - db-api.yaml

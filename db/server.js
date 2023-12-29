@@ -1,31 +1,30 @@
 const express = require('express');
-const Sequelize = require('sequelize');
+const mongoose = require('mongoose');
 
 const app = express();
 const port = 4000;
 app.use(express.json());
 
-const sequelize = new Sequelize('postgres://postgres:postgresSuperUserPsw@mypostgres:5432/dbname');
+mongoose.connect('mongodb://mongodb:27017/dbname', { useNewUrlParser: true, useUnifiedTopology: true });
+
+const resultSchema = new mongoose.Schema({
+    elapsedTime: Number,
+    correctCount: Number,
+    averageKeystrokes: Number,
+    mistypeCount: Number,
+    accuracy: Number
+}, { timestamps: true });
+
+const Result = mongoose.model('Result', resultSchema);
 
 app.get('/db/results/last', async (req, res) => {
-    const lastResult = await Result.findOne({ order: [['createdAt', 'DESC']] });
+    const lastResult = await Result.findOne().sort('-createdAt');
     res.json(lastResult);
 });
 
-const Result = sequelize.define('result', {
-    elapsedTime: Sequelize.FLOAT,
-    correctCount: Sequelize.INTEGER,
-    averageKeystrokes: Sequelize.FLOAT,
-    mistypeCount: Sequelize.INTEGER,
-    accuracy: Sequelize.FLOAT
-});
-
-sequelize.sync().then(() => {
-    console.log('Database & tables created!');
-});
-
 app.post('/db/results/save', async (req, res) => {
-    const result = await Result.create(req.body);
+    const result = new Result(req.body);
+    await result.save();
     res.json(result);
 });
 
