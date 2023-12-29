@@ -5,7 +5,7 @@ import { GlobalStyle,Container, Background, Header, BlackBoxContainer } from '..
 import axios from 'axios';
 
 const saveResult = async (result) => {
-  const response = await axios.post('http://koske-game.nip.io/results/save', result);
+  const response = await axios.post('http://koske-game.nip.io/db/results/save', result);
   return response.data;
 };
 
@@ -29,7 +29,7 @@ const Result = ({ gameStarted }) => {
 
   useEffect(() => {
     const fetchLastResult = async () => {
-      const response = await axios.get('http://koske-game.nip.io/results/last');
+      const response = await axios.get('http://koske-game.nip.io/db/results/last');
       setLastResult(response.data);
     };
   

@@ -29,15 +29,7 @@
     ```bash
     kubectl apply -f https://raw.githubusercontent.com/reactive-tech/kubegres/v1.17/kubegres.yaml
     kubectl get all -n kubegres-system
-- PostgreSQLのサーバ構成の設定と適用
-    ```bash
-    kubectl apply -f postgreSQL/my-postgres-secret.yaml
-    kubectl apply -f postgreSQL/my-postgres.yaml
-    kubectl apply -f postgreSQL/psql.yaml
-- テーブルを作成
-    ```bash
-    kubectl apply -f postgreSQL/postgres.yaml
-- pod、replicaset、deployment、service、ingressをminikube上に作成
+- pod、replicaset、deployment、service、ingress、PostgreSQLのサーバ、テーブルをminikube上に作成
     ```bash
     skaffold dev
 - host名で名前解決できるようにする
