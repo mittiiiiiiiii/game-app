@@ -70,11 +70,11 @@ const Result = ({ gameStarted }) => {
             <BlackBoxContainer>
               <ResultTitle>結果</ResultTitle>
                 <TextInfo>
-                  ・経過時間: <GreenText>{formattedElapsedTime} (前回: {lastResult ? formatTime(lastResult.elapsedTime) : '00:00:00'})<br/></GreenText>
-                  ・正しく打ったキーの数: <GreenText>{correctCount} (前回: {lastResult ? lastResult.correctCount : 0})<br/></GreenText>
-                  ・平均キータイプ数: <GreenText>{formattedAverageKeystrokes} (前回: {lastResult ? Number(lastResult.averageKeystrokes).toFixed(1) : '0.0'})回/秒<br/></GreenText>
-                  ・ミスタイプ数: <GreenText>{mistypeCount} (前回: {lastResult ? lastResult.mistypeCount : 0})<br/></GreenText>
-                  ・正確率: <GreenText>{formattedAccuracy} (前回: {lastResult ? Number(lastResult.accuracy).toFixed(2) : '0.00'})%</GreenText>%
+                  ・経過時間: <GreenText>{formattedElapsedTime}</GreenText> (<GreenText>{lastResult ? formatTime(lastResult.elapsedTime) : '00:00:00'}</GreenText>)<br/>
+                  ・正しく打ったキーの数: <GreenText>{correctCount}</GreenText> (<GreenText>{lastResult ? lastResult.correctCount : 0}</GreenText>)<br/>
+                  ・平均キータイプ数: <GreenText>{formattedAverageKeystrokes}</GreenText>回/秒 (<GreenText>{lastResult ? Number(lastResult.averageKeystrokes).toFixed(1) : '0.0'}</GreenText>回/秒)<br/>
+                  ・ミスタイプ数: <GreenText>{mistypeCount}</GreenText> (<GreenText>{lastResult ? lastResult.mistypeCount : 0}</GreenText>)<br/>
+                  ・正確率: <GreenText>{formattedAccuracy}</GreenText>% (<GreenText>{lastResult ? Number(lastResult.accuracy).toFixed(2) : '0.00'}</GreenText>%)
                 </TextInfo>
               <ReturnButton onClick={handlePlayButtonClick}>タイトルに戻る</ReturnButton>
             </BlackBoxContainer>
