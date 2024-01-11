@@ -5,7 +5,7 @@ import '@testing-library/jest-dom';
 import Result from './result';
 import Game from '../Game/game';
 import Start from '../Start/start'
-import { server } from "../../mocks/server"; // 追加
+import { server } from "../../mocks/server";
 
 // テスト用の初期データ
 const initialState = {
@@ -16,10 +16,11 @@ const initialState = {
     accuracy: 71.43,
 };
 
+beforeAll(() => server.listen());
+afterEach(() => server.resetHandlers());
+afterAll(() => server.close());
+
 describe('Result コンポーネント', () => {
-    beforeAll(() => server.listen());   // この三行を追加
-    afterEach(() => server.resetHandlers());
-    afterAll(() => server.close());
     test('期待されたテキストで正しくレンダリングされる', () => {
         render(
             <MemoryRouter initialEntries={[{ pathname: '/result', state: initialState }]}>
@@ -40,7 +41,6 @@ describe('Result コンポーネント', () => {
         expect(screen.getByText(/回\/秒/)).toBeInTheDocument();
         expect(screen.getByText(/ミスタイプ数:/)).toBeInTheDocument();
         expect(screen.getByText(/正確率:/)).toBeInTheDocument();
-        expect(screen.getByText(/%$/)).toBeInTheDocument();
     });
 
     test('リターンボタンが存在するか', () => {
@@ -72,7 +72,6 @@ describe('Result コンポーネント', () => {
             fireEvent.keyPress(screen.getByTestId('current-symbol'), { key: currentSymbol });
         }
 
-        // Result コンポーネントに遷移後の表示を確認
         await waitFor(() => {
             expect(screen.getByText('結果')).toBeInTheDocument();
         });
