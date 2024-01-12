@@ -17,4 +17,16 @@ export const handlers = [
       })
     );
   }),
+  rest.get('http://koske-game.nip.io/db/results/last', (req, res, ctx) => {
+    return res(ctx.json({
+      elapsedTime: 100,
+      correctCount: 50,
+      averageKeystrokes: 0.5,
+      mistypeCount: 10,
+      accuracy: 80
+    }));
+  }),
+  rest.post('http://koske-game.nip.io/db/results/save', (req, res, ctx) => {
+    return res(ctx.json(req.body));
+  }),
 ];
