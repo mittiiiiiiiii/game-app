@@ -38,19 +38,24 @@ const Result = ({ gameStarted }) => {
   
   //不正なアクセスを禁止する
   useEffect(() => {
-    if (!gameStarted || !location.state) {
-      navigate('/');
-    } else {
-      const result = {
-        elapsedTime,
-        correctCount,
-        mistypeCount,
-        accuracy,
-        averageKeystrokes
-      };
-      saveResult(result);
-    }
-  }, [gameStarted, location.state, navigate, elapsedTime, correctCount, mistypeCount, accuracy, averageKeystrokes]);
+    const fetchAndSaveResult = async () => {
+      if (!gameStarted || !location.state) {
+        navigate('/');
+      } else {
+        const response = await axios.get('http://koske-game.nip.io/db/results/last'); // 結果を保存する前に最新の結果を取得
+        setLastResult(response.data);
+        const result = {
+          elapsedTime,
+          correctCount,
+          mistypeCount,
+          accuracy,
+          averageKeystrokes
+        };
+        await saveResult(result);
+      }
+    };
+    fetchAndSaveResult();
+  }, [accuracy, averageKeystrokes, correctCount, elapsedTime, gameStarted, location.state, mistypeCount, navigate]);
 
   const formattedElapsedTime = formatTime(elapsedTime);
   const formattedAccuracy = Number(accuracy).toFixed(2);
