@@ -26,15 +26,6 @@ const Result = ({ gameStarted }) => {
   const location = useLocation();
   const { elapsedTime = 0, correctCount = 0, mistypeCount = 0, accuracy = 0, averageKeystrokes = 0 } = location.state;
   const [lastResult, setLastResult] = useState(null);
-
-  useEffect(() => {
-    const fetchLastResult = async () => {
-      const response = await axios.get('http://koske-game.nip.io/db/results/last');
-      setLastResult(response.data);
-    };
-  
-    fetchLastResult();
-  }, []);
   
   //不正なアクセスを禁止する
   useEffect(() => {
@@ -56,7 +47,7 @@ const Result = ({ gameStarted }) => {
     };
     fetchAndSaveResult();
   }, [accuracy, averageKeystrokes, correctCount, elapsedTime, gameStarted, location.state, mistypeCount, navigate]);
-
+  
   const formattedElapsedTime = formatTime(elapsedTime);
   const formattedAccuracy = Number(accuracy).toFixed(2);
   const formattedAverageKeystrokes = Number(averageKeystrokes).toFixed(1);
@@ -67,28 +58,31 @@ const Result = ({ gameStarted }) => {
   };
 
   return (
-    <>
-      <GlobalStyle />
-        <Container>
-          <Background/>
-            <Header data-testid="header-label">NS-TYPING</Header>
-            <BlackBoxContainer>
-              <ResultTitle>結果</ResultTitle>
-                <TextInfo>
-                  ・経過時間: <GreenText>{formattedElapsedTime}</GreenText> (<GreenText>{lastResult ? formatTime(lastResult.elapsedTime) : '00:00:00'}</GreenText>)<br/>
-                  ・正しく打ったキーの数: <GreenText>{correctCount}</GreenText> (<GreenText>{lastResult ? lastResult.correctCount : 0}</GreenText>)<br/>
-                  ・平均キータイプ数: <GreenText>{formattedAverageKeystrokes}</GreenText>回/秒 (<GreenText>{lastResult ? Number(lastResult.averageKeystrokes).toFixed(1) : '0.0'}</GreenText>回/秒)<br/>
-                  ・ミスタイプ数: <GreenText>{mistypeCount}</GreenText> (<GreenText>{lastResult ? lastResult.mistypeCount : 0}</GreenText>)<br/>
-                  ・正確率: <GreenText>{formattedAccuracy}</GreenText>% (<GreenText>{lastResult ? Number(lastResult.accuracy).toFixed(2) : '0.00'}</GreenText>%)
-                </TextInfo>
-              <ReturnButton onClick={handlePlayButtonClick}>タイトルに戻る</ReturnButton>
-            </BlackBoxContainer>
-        </Container>
-    </>
+    <React.StrictMode>
+      <>
+        <GlobalStyle />
+          <Container>
+            <Background/>
+              <Header data-testid="header-label">NS-TYPING</Header>
+              <BlackBoxContainer>
+                <ResultTitle>結果</ResultTitle>
+                  <TextInfo>
+                    ・経過時間: <GreenText>{formattedElapsedTime}</GreenText> (<GreenText>{lastResult ? formatTime(lastResult.elapsedTime) : '00:00:00'}</GreenText>)<br/>
+                    ・正しく打ったキーの数: <GreenText>{correctCount}</GreenText> (<GreenText>{lastResult ? lastResult.correctCount : 0}</GreenText>)<br/>
+                    ・平均キータイプ数: <GreenText>{formattedAverageKeystrokes}</GreenText>回/秒 (<GreenText>{lastResult ? Number(lastResult.averageKeystrokes).toFixed(1) : '0.0'}</GreenText>回/秒)<br/>
+                    ・ミスタイプ数: <GreenText>{mistypeCount}</GreenText> (<GreenText>{lastResult ? lastResult.mistypeCount : 0}</GreenText>)<br/>
+                    ・正確率: <GreenText>{formattedAccuracy}</GreenText>% (<GreenText>{lastResult ? Number(lastResult.accuracy).toFixed(2) : '0.00'}</GreenText>%)
+                  </TextInfo>
+                <ReturnButton onClick={handlePlayButtonClick}>タイトルに戻る</ReturnButton>
+              </BlackBoxContainer>
+          </Container>
+      </>
+    </React.StrictMode>
   );
 }
 
 export default Result;
+
 
 const ResultTitle = styled.div`
   width: 173px;
